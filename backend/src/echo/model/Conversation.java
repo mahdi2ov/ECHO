@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Conversation {
+public class Conversation implements Comparable<Conversation> {
     private final String id;
     private final ConversationType type;
     private boolean pinned;
@@ -18,7 +18,7 @@ public class Conversation {
         this.type = type;
         this.pinned = false;
         this.archived = false;
-        this.lastMessageAt = LocalDateTime.now();
+        this.lastMessageAt = null;
         this.membersId = new ArrayList<>();
     }
     
@@ -80,5 +80,11 @@ public class Conversation {
     public String toString() {
         return "Conversation [id = " + this.id + ", type = " + this.type + ", pinned = " + this.pinned + ", archived = " + this.archived
                 + ", lastMessageAt = " + this.lastMessageAt + ", membersId = " + this.membersId + "]";
+    }
+
+    // compare conversations
+    @Override
+    public int compareTo(Conversation other) {
+        return this.lastMessageAt.compareTo(other.lastMessageAt);
     }
 }

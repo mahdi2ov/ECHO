@@ -4,9 +4,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Message {
+import echo.util.DateTimeUtil;
+
+public class Message implements Comparable<Message> {
     private final String id;
     private final String senderId;
+    private final String conversationId;
     private String content;
     private final LocalDateTime createdAt;
     private boolean edited;
@@ -15,11 +18,12 @@ public class Message {
     private final List<Reaction> reactions;
     
     // constructor
-    public Message(String id, String senderId, String content) {
+    public Message(String id, String senderId,String conversationId, String content) {
         this.id = id;
         this.senderId = senderId;
+        this.conversationId = conversationId;
         this.content = content;
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = DateTimeUtil.now();
         this.edited = false;
         this.deleted = false;
         this.editHistory = new ArrayList<>();
@@ -32,6 +36,9 @@ public class Message {
     }
     public String getSenderId() {
         return this.senderId;
+    }
+    public String getConversationId() {
+        return conversationId;
     }
     public String getContent() {
         return this.content;
@@ -51,6 +58,7 @@ public class Message {
     public List<Reaction> getReactions() {
         return this.reactions;
     }
+
     public void setContent(String content) {
         this.content = content;
     }
@@ -87,7 +95,14 @@ public class Message {
     }
     @Override
     public String toString() {
-        return String.format("Message [id = %s, senderId = %s, content = %.10s, createdAt = %s, edited = %b, deleted = %b, editHistory = %s, reactions = %s]",
-        this.id, this.senderId, this.content, this.createdAt, this.edited, this.deleted, this.editHistory, this.reactions);
+        return "Message [id=" + id + ", senderId=" + senderId + ", conversationId=" + conversationId + ", content="
+                + content + ", createdAt=" + createdAt + ", edited=" + edited + ", deleted=" + deleted
+                + ", editHistory=" + editHistory + ", reactions=" + reactions + "]";
+    }
+
+    // compare messages
+    @Override
+    public int compareTo(Message other) {
+        return this.createdAt.compareTo(other.createdAt);
     }
 }

@@ -5,20 +5,22 @@ import java.util.List;
 
 public class Group {
     private final String id;
-    private final String name;
+    private String name;
     private String description;
     private String profileImagePath;
+    private String conversationId;
+    private String ownerId;
     private final List<String> adminsId;
-    private final List<String> membersId;
     
     // constructor
-    public Group(String id, String name) {
+    public Group(String id, String name,String ownerId, String conversationId) {
         this.id = id;
         this.name = name;
         this.description = null;
         this.profileImagePath = null;
+        this.conversationId = conversationId;
+        this.ownerId = ownerId;
         this.adminsId = new ArrayList<>();
-        this.membersId = new ArrayList<>();
     }
     
     // getters and setters
@@ -34,18 +36,30 @@ public class Group {
     public String getProfileImagePath() {
         return this.profileImagePath;
     }
+    public String getConversationId() {
+        return conversationId;
+    }
+    public String getOwnerId() {
+        return ownerId;
+    }
     public List<String> getAdminsId() {
         return this.adminsId;
     }
-    public List<String> getMembersId() {
-        return this.membersId;
-    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
     public void setDescription(String description) {
         this.description = description;
     }
     public void setProfileImagePath(String profileImagePath) {
         this.profileImagePath = profileImagePath;
+    }
+    public void setConversationId(String conversationId) {
+        this.conversationId = conversationId;
+    }
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 
     // equals, hashCode and toString
@@ -74,7 +88,6 @@ public class Group {
     }
     @Override
     public String toString() {
-        return "Group [id = " + this.id + ", name = " + this.name + ", description = " + this.description + ", profileImagePath = "
-                + profileImagePath + ", adminsId = " + this.adminsId + ", membersId = " + this.membersId + "]";
+        return "Group [id=" + id + ", name=" + name + ", ownerId=" + ownerId + "]";
     }
 }

@@ -1,4 +1,4 @@
-package echo.repository;
+package echo.repository.file;
 
 public class FileConversationRepository {
 }

@@ -70,7 +70,7 @@ public class Report {
     }
     @Override
     public String toString() {
-        return "Report [id = " + this.id + ", reportedMessageId = " + this.reportedMessageId + ", reporterUserId = " + this.reporterUserId
-                + ", reason = " + this.reason + ", reportedAt = " + this.reportedAt + ", resolved = " + this.resolved + "]";
+        return "Report [id=" + id + ", reportedMessageId=" + reportedMessageId + ", reporterUserId=" + reporterUserId
+                + ", reason=" + reason + ", reportedAt=" + reportedAt + ", resolved=" + resolved + "]";
     }
 }
