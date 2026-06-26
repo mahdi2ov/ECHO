@@ -8,6 +8,7 @@ public class User {
     private String username;
     private final String id;
     private String passwordHash;
+    private String passwordsalt;
     private String profileImagePath;
     private boolean locked;
     private LocalDateTime lockUntil;
@@ -19,6 +20,7 @@ public class User {
         this.username = username;
         this.id = id;
         this.passwordHash = passwordHash;
+        this.passwordsalt = null;
         this.profileImagePath = null;
         this.locked = false;
         this.lockUntil = null;
@@ -36,6 +38,10 @@ public class User {
     public String getPasswordHash() {
         return this.passwordHash;
     }
+    public String getPasswordsalt() {
+        return passwordsalt;
+    }
+
     public String getProfileImagePath() {
         return this.profileImagePath;
     }
@@ -57,6 +63,9 @@ public class User {
     }
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
+    }
+    public void setPasswordsalt(String passwordsalt) {
+        this.passwordsalt = passwordsalt;
     }
     public void setProfileImagePath(String profileImagePath) {
         this.profileImagePath = profileImagePath;
@@ -94,8 +103,7 @@ public class User {
     }
     @Override
     public String toString() {
-        return "User [username = " + this.username + ", id = " + this.id + ", passwordHash = " + this.passwordHash + ", profileImagePath = "
-                + profileImagePath + ", contacts = " + this.contacts + ", blockedUsers = " + this.blockedUsers + ", locked = " + this.locked
-                + ", lockUntil = " + this.lockUntil + "]";
+        return "User [username=" + username + ", id=" + id + ", passwordHash=" + passwordHash + ", locked=" + locked
+                + "]";
     }
 }

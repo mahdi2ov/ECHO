@@ -2,6 +2,8 @@ package echo.model;
 
 import java.time.LocalDateTime;
 
+import echo.util.DateTimeUtil;
+
 public class MessageEdit {
     private final String oldContent;
     private final LocalDateTime editedAt;
@@ -9,7 +11,7 @@ public class MessageEdit {
     // constructor
     public MessageEdit(String oldContent) {
         this.oldContent = oldContent;
-        this.editedAt = LocalDateTime.now();
+        this.editedAt = DateTimeUtil.now();
     }
 
     // getters (no setters because fields are constant)
