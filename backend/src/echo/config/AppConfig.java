@@ -20,8 +20,8 @@ public class AppConfig {
     private static final int MAX_MESSAGE_PER_SECOND = 5;
 
     // cli admin
-    private static final String DEFAULT_USERNAME = "username";
-    private static final String DEFAULT_PASSWORD = "password";
+    private static final String DEFAULT_USERNAME = "MMOMRM";
+    private static final String DEFAULT_PASSWORD = "ECHOproject";
 
     // security
     private static final String ENCRIPTION_KEY = "EchoKey";
