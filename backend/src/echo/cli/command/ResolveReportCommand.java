@@ -3,29 +3,29 @@ package echo.cli.command;
 import java.util.Scanner;
 import echo.service.AdminService;
 
-public class DeleteGroupCommand implements Command {
+public class ResolveReportCommand implements Command {
     private final AdminService adminService;
 
-    public DeleteGroupCommand(AdminService adminService) {
+    public ResolveReportCommand(AdminService adminService) {
         this.adminService = adminService;
     }
 
     @Override
     public String getName() {
-        return "delete-group";
+        return "resolve-report";
     }
 
     @Override
     public void execute(Scanner scanner) {
-        System.out.print("Please enter group id: ");
-        String name = scanner.next();
+        System.out.print("Please enter reportId: ");
+        String reportId = scanner.next();
         System.out.println();
 
-        String error = adminService.deleteGroup(name);
+        String error = adminService.resolveReport(reportId);
         if (error != null) {
             System.out.println("Error:\n" + error);
         } else {
-            System.out.println("Group deleted successfully.");
+            System.out.println("Report resolved successfully.");
         }
     }
 }
