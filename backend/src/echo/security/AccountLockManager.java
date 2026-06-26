@@ -8,57 +8,58 @@ import echo.config.AppConfig;
 import echo.util.DateTimeUtil;
 
 public class AccountLockManager {
-    private final Map<String, Integer> failedAttempts;
-    private final Map<String, LocalDateTime> lockUntils;
+    private final Map<String, Integer> userFailedAttemptsById;
+    private final Map<String, LocalDateTime> userLockUntilsById;
+
+    private static final int MAX_LOGIN_ATTEMPTS = AppConfig.getMaxLoginAttempts();
+    private static final int LOCK_ACCOUNT_MINUTES = AppConfig.getLockAccountMinutes();
     
     // constructor
     public AccountLockManager() {
-        this.failedAttempts = new HashMap<>();
-        this.lockUntils = new HashMap<>();
+        this.userFailedAttemptsById = new HashMap<>();
+        this.userLockUntilsById = new HashMap<>();
     }
 
     // method for increase failed attemps
-    public synchronized void increaseFailedAttempt(String username) {
-        if (this.isLocked(username)) {
+    public synchronized void increaseFailedAttempt(String id) {
+        if (this.isLocked(id)) {
             return;
         }
-        int attempts = this.failedAttempts.get(username) != null ? this.failedAttempts.get(username) : 0;
-        this.failedAttempts.put(username, attempts + 1);
-        if (attempts + 1 >= AppConfig.getMaxLoginAttempts()) {
-            this.lock(username);
+        int attempts = this.userFailedAttemptsById.get(id) != null ? this.userFailedAttemptsById.get(id) : 0;
+        this.userFailedAttemptsById.put(id, attempts + 1);
+        if (attempts + 1 >= MAX_LOGIN_ATTEMPTS) {
+            this.lock(id);
         }
     }
 
-    // method for reseting failed attemp of an account
-    public synchronized void reset(String username) {
-        this.failedAttempts.remove(username);
-        this.lockUntils.remove(username);
+    // method for reseting failed attemps and lock until of an account
+    public synchronized void reset(String id) {
+        this.userFailedAttemptsById.remove(id);
+        this.userLockUntilsById.remove(id);
     }
 
     // method for checking an account is locked
-    public synchronized boolean isLocked(String username) {
-        LocalDateTime lockUntil = this.lockUntils.get(username);
+    public synchronized boolean isLocked(String id) {
+        LocalDateTime lockUntil = this.userLockUntilsById.get(id);
         if (lockUntil == null) {
             return false;
         }
         if (DateTimeUtil.isFinished(lockUntil)) {
-            this.unlock(username);
+            this.unlock(id);
             return false;
         }
         return true;
     }
 
     // method to lock an account
-    public synchronized void lock(String username) {
-        this.lockUntils.put(username, DateTimeUtil.plusMinutes(DateTimeUtil.now(), AppConfig.getLockAccountMinutes()));
-        this.failedAttempts.remove(username);
+    public synchronized void lock(String id) {
+        this.userLockUntilsById.put(id, DateTimeUtil.plusMinutes(DateTimeUtil.now(), LOCK_ACCOUNT_MINUTES));
+        this.userFailedAttemptsById.remove(id);
     }
 
     // method for unlocking an account if lock time is finished
-    public synchronized void unlock(String username) {
-        this.lockUntils.remove(username);
-        this.failedAttempts.remove(username);
+    public synchronized void unlock(String id) {
+        this.userLockUntilsById.remove(id);
+        this.userFailedAttemptsById.remove(id);
     }
-
-    
 }

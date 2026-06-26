@@ -19,18 +19,14 @@ public class PasswordValidator {
     }
 
     // validate all of condition for user and save invalid conditions
-    public boolean validate(String password, String username) {
+    public List<String> validate(String password, String username) {
+        errors.clear();
         for (PasswordValidationRule validationRule : this.passwordValidationRules) {
             String error = validationRule.validate(password, username);
             if (error != null) {
                 this.errors.add(error);
             }
         }
-        return this.errors.size() == 0;
-    }
-
-    // get validation errors
-    public List<String> getErrors() {
-        return this.errors;
+        return errors;
     }
 }

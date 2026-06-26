@@ -5,7 +5,7 @@ import echo.config.AppConfig;
 public class PasswordHasher {
     private static final long PRIME = 31;
     private static final long MODULO = 50000017;
-    private static final long RANDOM_STRING_LENGTH = 8;
+    private static final long RANDOM_STRING_LENGTH = AppConfig.getRandomStringLength();
 
     // hashing password and random string
     public static String hash(String password, String random) {

@@ -19,18 +19,13 @@ public class MessageValidator {
     }
 
     // validate two condition for message and save invalid conditions
-    public boolean validate(String message, String senderId) {
+    public List<String> validate(String message, String senderId) {
         for (MessageValidationRule messageValidationRule : this.messageValidationRules) {
             String error = messageValidationRule.validate(message, senderId);
             if (error != null) {
                 this.errors.add(error);
             }
         }
-        return this.errors.size() == 0;
-    }
-
-    // get validation errors
-    public List<String> getErrors() {
         return this.errors;
     }
 }
