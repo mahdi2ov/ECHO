@@ -1,0 +1,96 @@
+/* auth layout */
+.page-auth {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100dvh;
+    background-color: var(--color-bg);
+    width: 100%;
+}
+
+.auth-from {
+    width: var(--size-100);
+    padding: 0 var(--size-6);
+
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo svg {
+    width: var(--size-40);
+}
+
+.auth-from h1 {
+    margin-top: var(--size-10);
+    margin-bottom: var(--size-10);
+    font-size: var(--text-4xl);
+    font-weight: var(--weight-medium);
+    text-align: center;
+}
+
+/* auth pages input */
+.input-group {
+    position: relative;
+    margin-bottom: var(--size-6);
+}
+
+.input-field {
+    width: 100%;
+    height: var(--size-12);
+    padding: 0 var(--size-3);
+    font-size: var(--text-base);
+    color: var(--color-text-primary);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-md);
+    transition: border-color var(--transition-fast);
+}
+
+.input-field:focus {
+    border-color: var(--color-accent);
+    background-color: inherit;
+}
+
+.input-label {
+    position: absolute;
+    left: var(--size-3);
+    top: calc(50% + var(--size-1));
+    transform: translateY(-50%);
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+    pointer-events: none;
+    transition: all var(--transition-fast);
+    width: max-content;
+    padding: 0 var(--size-2);
+}
+
+.input-field:focus ~ .input-label,
+.input-field:not(:placeholder-shown) ~ .input-label {
+    top: 0;
+    right: var(--size-3);
+    transform: translateY(-50%);
+    font-size: var(--text-sm);
+    color: var(--color-accent);
+    background-color: var(--color-bg);
+    padding: 0 var(--size-1);
+}
+
+.input-field:focus ~ .input-label {
+    color: var(--color-accent);
+}
+
+.input-field:not(:focus):not(:placeholder-shown) ~ .input-label {
+    color: var(--color-text-secondary);
+}
+
+.input-field.error {
+    border-color: var(--color-danger);
+}
+
+.input-field.error:focus ~ .input-label,
+.input-field.error:not(:placeholder-shown) ~ .input-label {
+    color: var(--color-danger);
+}
