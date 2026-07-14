@@ -6,6 +6,8 @@
     <link rel="icon" type="image/svg+xml" href="/frontend/assets/logo/logo.svg">
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/auth.css">
+    <link rel="stylesheet" href="../css/toast.css">
+    <script type="module" src="../js/pages/login.js" defer></script>
 </head>
 <body>
 <div id="app">
@@ -32,7 +34,7 @@
             <h1>
                 ECHO
             </h1>
-            <form action="#" autocomplete="off" class="form">
+            <form autocomplete="off" class="form" novalidate>
                 <div class="input-group">
                     <input type="text" autocomplete="off" id="username" placeholder=" " class="input-field">
                     <label for="username" class="input-label">Username</label>
@@ -41,13 +43,21 @@
                     <input type="password" autocomplete="off" id="password" placeholder=" " class="input-field">
                     <label for="password" class="input-label">Password</label>
                 </div>
+                <p class="form-error" hidden></p>
                 <button type="submit" class="btn btn-block btn-primary">
                     Login
                 </button>
             </form>
+            <div class="auth-switch">
+                <div class="item">
+                    <a href="forgotPassword.html">Forgot password?</a>
+                </div>
+                <div class="item">
+                    <a href="signup.html">Don't have an account?&nbsp;&nbsp;&nbsp;Sign up</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<script src="script.js"></script>
 </body>
 </html>

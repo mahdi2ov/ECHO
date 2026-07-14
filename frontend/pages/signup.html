@@ -6,6 +6,8 @@
     <link rel="icon" type="image/svg+xml" href="/frontend/assets/logo/logo.svg">
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/auth.css">
+    <link rel="stylesheet" href="../css/toast.css">
+    <script type="module" src="../js/pages/signup.js" defer></script>
 </head>
 <body>
 <div id="app">
@@ -32,19 +34,19 @@
             <h1>
                 ECHO
             </h1>
-            <form action="#" autocomplete="off" class="form">
-                <div class="input-group">
-                    <input type="text" autocomplete="off" id="name" placeholder=" " class="input-field">
-                    <label for="name" class="input-label">Name</label>
-                </div>
+            <form autocomplete="off" class="form" novalidate>
+<!--                <div class="input-group">-->
+<!--                    <input type="text" autocomplete="off" id="name" placeholder=" " class="input-field">-->
+<!--                    <label for="name" class="input-label">Name</label>-->
+<!--                </div>-->
                 <div class="input-group">
                     <input type="text" autocomplete="off" id="username" placeholder=" " class="input-field">
                     <label for="username" class="input-label">Username</label>
                 </div>
-                <div class="input-group">
-                    <input type="email" autocomplete="off" id="email" placeholder=" " class="input-field">
-                    <label for="email" class="input-label">Email</label>
-                </div>
+<!--                <div class="input-group">-->
+<!--                    <input type="email" autocomplete="off" id="email" placeholder=" " class="input-field">-->
+<!--                    <label for="email" class="input-label">Email</label>-->
+<!--                </div>-->
                 <div class="input-group">
                     <input type="password" autocomplete="off" id="password" placeholder=" " class="input-field">
                     <label for="password" class="input-label">Password</label>
@@ -53,13 +55,18 @@
                     <input type="password" autocomplete="off" id="re-password" placeholder=" " class="input-field">
                     <label for="re-password" class="input-label">Confirm Password</label>
                 </div>
+                <p class="form-error" hidden></p>
                 <button type="submit" class="btn btn-block btn-primary">
                     Sign Up
                 </button>
             </form>
+            <div class="auth-switch">
+                <div class="item">
+                    <a href="login.html">Already have an account?&nbsp;&nbsp;&nbsp;Login</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<script src="script.js"></script>
 </body>
 </html>
