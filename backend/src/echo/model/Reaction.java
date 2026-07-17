@@ -9,9 +9,14 @@ public class Reaction {
     
     // constructor
     public Reaction(String userId, ReactionType emoji) {
+        this(userId, emoji, LocalDateTime.now());
+    }
+
+    // constructor for reading from database
+    public Reaction(String userId, ReactionType emoji, LocalDateTime reactedAt) {
         this.userId = userId;
         this.emoji = emoji;
-        this.reactedAt = LocalDateTime.now();
+        this.reactedAt = reactedAt;
     }
 
     // getters (no setters because fields are constant)

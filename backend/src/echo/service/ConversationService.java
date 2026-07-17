@@ -45,6 +45,10 @@ public class ConversationService {
         return conversation;
     }
 
+    public synchronized void deleteConversation(String conversationId) {
+        conversationRepository.deleteById(conversationId);
+    }
+    
     public synchronized Conversation addMemberToGroupConversation(String conversationId, String memberId) {
         // getting conversation if exists
         Conversation conversation = conversationRepository.getConversationById(conversationId);
@@ -142,10 +146,8 @@ public class ConversationService {
         // getting list of user conversation
         List<Conversation> conversations = conversationRepository.getConversationsByUserId(userId);
         
-        // sort conversations by lastmessge time
+        // sort conversations by lastMessageAt time
         Collections.sort(conversations);
-        // reverse conversations for sort by new messages
-        Collections.reverse(conversations);
 
         return conversations;
     }

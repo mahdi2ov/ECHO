@@ -12,11 +12,16 @@ public class Report {
 
     // constructor
     public Report(String id, String reportedMessageId, String reporterUserId, String reason) {
+        this(id, reportedMessageId, reporterUserId, reason, LocalDateTime.now());
+    }
+
+    // constructor for reading from database
+    public Report(String id, String reportedMessageId, String reporterUserId, String reason, LocalDateTime reportedAt) {
         this.id = id;
         this.reportedMessageId = reportedMessageId;
         this.reporterUserId = reporterUserId;
         this.reason = reason;
-        this.reportedAt = LocalDateTime.now();
+        this.reportedAt = reportedAt;
         this.resolved = false;
     }
     

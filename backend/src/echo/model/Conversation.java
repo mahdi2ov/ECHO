@@ -85,6 +85,26 @@ public class Conversation implements Comparable<Conversation> {
     // compare conversations
     @Override
     public int compareTo(Conversation other) {
-        return this.lastMessageAt.compareTo(other.lastMessageAt);
+         // pinned conversations first
+        if (this.getPinned() && !other.getPinned()) {
+            return -1;
+        }
+        if (!this.getPinned() && other.getPinned()) {
+            return 1;
+        }
+
+        // conversations without messages go to the end
+        if (this.getLastMessageAt() == null && other.getLastMessageAt() == null) {
+            return 0;
+        }
+        if (this.getLastMessageAt() == null) {
+            return 1;
+        }
+        if (other.getLastMessageAt() == null) {
+            return -1;
+        }
+
+        // new conversation first based on lastMessageAt
+        return other.getLastMessageAt().compareTo(this.getLastMessageAt());
     }
 }
