@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -16,6 +18,7 @@ import echo.controller.UserController;
 import echo.dto.request.AddReactionRequest;
 import echo.dto.request.DeleteMessageRequest;
 import echo.dto.request.EditMessageRequest;
+import echo.dto.request.PollMessagesRequest;
 import echo.dto.request.RemoveReactionRequest;
 import echo.dto.request.SavedMessageRequest;
 import echo.dto.request.SendMessageRequest;
@@ -141,6 +144,10 @@ public class ECHOHttp implements HttpHandler {
             sendResponse(exchange, 200, chatController.pollMessages(JsonUtil.parsePollMessagesRequest(body)));
             return;
         }
+        if (path.equals("/messages") && method.equals("GET")) {
+            sendResponse(exchange, 200, chatController.pollMessages(parsePollFromQuery(exchange)));
+            return;
+        }
         if (path.equals("/messages") && method.equals("POST")) {
             SendMessageRequest request = JsonUtil.parseSendMessageRequest(body);
             String response = chatController.sendMessage(request);
@@ -259,5 +266,22 @@ public class ECHOHttp implements HttpHandler {
             exchange.getResponseBody().write(bytes);
         }
         exchange.close();
+    }
+
+     private PollMessagesRequest parsePollFromQuery(HttpExchange exchange) {
+        String query = exchange.getRequestURI().getQuery();
+        Map<String, String> params = new HashMap<>();
+        if (query != null && !query.isBlank()) {
+            for (String pair : query.split("&")) {
+                String[] kv = pair.split("=", 2);
+                if (kv.length == 2) {
+                    params.put(kv[0], kv[1]);
+                }
+            }
+        }
+        String conversationId = params.get("conversationId");
+        String since = params.get("since");
+        return JsonUtil.parsePollMessagesRequest(String.format("{\"conversationId\":\"%s\",\"since\":\"%s\"}",
+                conversationId == null ? "" : conversationId, since == null ? "" : since));
     }
 }

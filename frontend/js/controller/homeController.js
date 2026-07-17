@@ -23,7 +23,7 @@ export const init = ({onSelectConversation} = {}) => {
     const headerSetting = qs(".header.setting");
     const backSettingButton = qs(".header.setting .back.button");
 
-    const newConversationPanel = qs(".sidebar .new-conversation");
+    const newConversationPanel = qs(".sidebar .panel.new-conversation");
     const headerNewConversation = qs(".header.new-conversation");
     const backNewConversationButton = qs(".header.new-conversation .back.button");
 
