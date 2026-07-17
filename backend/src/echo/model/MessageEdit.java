@@ -10,8 +10,13 @@ public class MessageEdit {
     
     // constructor
     public MessageEdit(String oldContent) {
+        this(oldContent, DateTimeUtil.now());
+    }
+
+    // constructor for reading from database
+    public MessageEdit(String oldContent, LocalDateTime editedAt) {
         this.oldContent = oldContent;
-        this.editedAt = DateTimeUtil.now();
+        this.editedAt = editedAt;
     }
 
     // getters (no setters because fields are constant)

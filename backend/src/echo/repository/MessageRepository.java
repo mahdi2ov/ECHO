@@ -1,5 +1,6 @@
 package echo.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import echo.model.Message;
@@ -22,4 +23,5 @@ public interface MessageRepository {
     // util methods
     List<Message> getMessagesBySenderId(String senderId);
     List<Message> getMessagesByConversationId(String conversationId);
+    List<Message> getMessagesByConversationIdSince(String conversationId, LocalDateTime since);
 }

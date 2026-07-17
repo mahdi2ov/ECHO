@@ -9,6 +9,14 @@ public class AppConfig {
     
     // database
     private static final String DATA_PATH = "backend/data";
+
+    private static final String USERS_PATH= "backend/data/users.txt";
+    private static final String CONVERSATIONS_PATH = "backend/data/conversations.txt";
+    private static final String GROUPS_PATH = "backend/data/groups.txt";
+    private static final String MESSAGES_PATH = "backend/data/messages.txt";
+    private static final String REPORTS_PATH = "backend/data/reports.txt";
+    private static final String CONTACTS_AND_BLOCKED_USERS_PATH = "backend/data/contacts-blockedusers.txt";
+    private static final String ADMIN_CLI_PATH = "backend/data/admin-cli.txt";
     
     // login
     private static final int MAX_LOGIN_ATTEMPTS = 5;
@@ -22,7 +30,7 @@ public class AppConfig {
     // cli admin
     private static final String DEFAULT_USERNAME = "MMOMRM";
     private static final String DEFAULT_PASSWORD = "ECHOproject";
-
+    
     // security
     private static final String ENCRIPTION_KEY = "EchoKey";
     private static final int RANDOM_STRING_LENGTH = 8;
@@ -40,6 +48,27 @@ public class AppConfig {
     }
     public static String getDataPath() {
         return DATA_PATH;
+    }
+    public static String getUsersPath() {
+        return USERS_PATH;
+    }
+    public static String getConversationsPath() {
+        return CONVERSATIONS_PATH;
+    }
+    public static String getGroupsPath() {
+        return GROUPS_PATH;
+    }
+    public static String getMessagesPath() {
+        return MESSAGES_PATH;
+    }
+    public static String getReportsPath() {
+        return REPORTS_PATH;
+    }
+    public static String getContactsAndBlockedUsersPath() {
+        return CONTACTS_AND_BLOCKED_USERS_PATH;
+    }
+    public static String getAdminCLIPath() {
+        return ADMIN_CLI_PATH;
     }
     public static int getMaxLoginAttempts() {
         return MAX_LOGIN_ATTEMPTS;

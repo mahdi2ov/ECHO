@@ -6,6 +6,7 @@ import java.util.List;
 
 public class User {
     private String username;
+    private String email;
     private final String id;
     private String passwordHash;
     private String passwordsalt;
@@ -16,8 +17,9 @@ public class User {
     private final List<String> blockedUsers;
     
     // constructor
-    public User(String username, String id, String passwordHash) {
+    public User(String username, String email, String id, String passwordHash) {
         this.username = username;
+        this.email =email;
         this.id = id;
         this.passwordHash = passwordHash;
         this.passwordsalt = null;
@@ -26,11 +28,14 @@ public class User {
         this.lockUntil = null;
         this.contacts = new ArrayList<>();
         this.blockedUsers = new ArrayList<>();
-    }    
+    }
 
     // getters and setters
     public String getUsername() {
         return this.username;
+    }
+    public String getEmail() {
+        return email;
     }
     public String getId() {
         return this.id;
@@ -41,7 +46,6 @@ public class User {
     public String getPasswordsalt() {
         return passwordsalt;
     }
-
     public String getProfileImagePath() {
         return this.profileImagePath;
     }
@@ -60,6 +64,9 @@ public class User {
     
     public void setUsername(String username) {
         this.username = username;
+    }
+    public void setEmail(String email) {
+        this.email = email;
     }
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;

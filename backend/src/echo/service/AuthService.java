@@ -25,7 +25,7 @@ public class AuthService {
     // TODO: methods input validation
     // TODO: make spacial exceptions
     
-    public synchronized User singup(String username , String password, String confirmPassword) {
+    public synchronized User singup(String username , String password, String confirmPassword, String email) {
 
         // checking confirmation password
         if (!confirmPassword.equals(password)) {
@@ -47,7 +47,7 @@ public class AuthService {
         String id = IdGenerator.nextUserId();
         String passwordSalt = PasswordHasher.randomString();
         String passwordHash = PasswordHasher.hash(confirmPassword, passwordSalt);
-        User newUser = new User(username, id, passwordHash);
+        User newUser = new User(username, email, id, passwordHash);
         newUser.setPasswordsalt(passwordSalt);
         userRepository.saveUser(newUser);
         return newUser;
@@ -81,13 +81,17 @@ public class AuthService {
         return existUser;
     }
 
-    public synchronized String passwordRecovery(String username) {
+    public synchronized String passwordRecovery(String username, String email) {
         // input validation // TODO
 
         // user must exist before password recovery
         User existUser = userRepository.getUserByUsername(username);
         if (existUser == null) {
             throw new RuntimeException("User not exist.");
+        }
+
+        if (existUser.getEmail() != email) {
+            throw new RuntimeException("User email is invalid.");
         }
 
         // generate random password

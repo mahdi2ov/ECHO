@@ -16,14 +16,20 @@ public class Message implements Comparable<Message> {
     private boolean deleted;
     private final List<MessageEdit> editHistory;
     private final List<Reaction> reactions;
+    private Attachment attachment;
     
     // constructor
-    public Message(String id, String senderId,String conversationId, String content) {
+    public Message(String id, String senderId, String conversationId, String content) {
+        this(id, senderId, conversationId, content, DateTimeUtil.now());
+    }
+
+    // constructor for reading from database
+    public Message(String id, String senderId, String conversationId, String content, LocalDateTime createdAt) {
         this.id = id;
         this.senderId = senderId;
         this.conversationId = conversationId;
         this.content = content;
-        this.createdAt = DateTimeUtil.now();
+        this.createdAt = createdAt;
         this.edited = false;
         this.deleted = false;
         this.editHistory = new ArrayList<>();
@@ -58,6 +64,9 @@ public class Message implements Comparable<Message> {
     public List<Reaction> getReactions() {
         return this.reactions;
     }
+    public Attachment getAttachment() {
+        return this.attachment;
+    }
 
     public void setContent(String content) {
         this.content = content;
@@ -67,6 +76,9 @@ public class Message implements Comparable<Message> {
     }
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+    public void setAttachment(Attachment attachment) {
+        this.attachment = attachment;
     }
 
     // equals, hashCode and toString

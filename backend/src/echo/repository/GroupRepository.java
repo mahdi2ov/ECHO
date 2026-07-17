@@ -9,6 +9,7 @@ public interface GroupRepository {
 
     // read
     Group getGroupById(String id);
+    Group getGroupByConversationId(String conversationId);
     Group getGroupByName(String name);
     boolean existById(String id);
     List<Group> getAllGroups();
