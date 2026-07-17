@@ -1,0 +1,140 @@
+.sidebar .chat-list {
+    height: calc(100% - var(--size-14));
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    transition: scrollbar-color 0.3s;
+    padding: var(--size-2);
+    display: none;
+}
+
+.sidebar .chat-list.open {
+    display: block;
+}
+
+.sidebar .chat-list:hover {
+    scrollbar-color: var(--color-bg-secondary) transparent;
+}
+
+.sidebar .chat-list::-webkit-scrollbar {
+    width: 5px;
+}
+
+.sidebar .chat-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar .chat-list::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: var(--radius-full);
+    transition: background-color 0.3s;
+}
+
+.sidebar .chat-list:hover::-webkit-scrollbar-thumb {
+    background-color: var(--color-bg-secondary);
+}
+
+.chat-list .item {
+    cursor: pointer;
+    height: calc(var(--size-14) + var(--size-4));
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-right: var(--size-3);
+}
+
+.chat-list .item:hover {
+    background-color: var(--color-bg-tertiary);
+}
+
+.chat-list .item.active {
+    background-color: var(--color-accent);
+}
+
+.chat-list .item .profile {
+    width: var(--size-14);
+    height: var(--size-14);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    margin: var(--size-3);
+    /*background-color: var(--color-accent);*/
+}
+
+.chat-list .item.saved-message .profile {
+    background-color: var(--color-accent);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chat-list .item.saved-message .profile svg {
+    fill: white;
+}
+
+.chat-list .item .profile img {
+    width: inherit;
+    height: inherit;
+}
+
+.chat-list .item .text {
+    width: calc(var(--size-48) + var(--size-2));
+    display: block;
+    justify-content: center;
+}
+
+.chat-list .item .text h1,
+.chat-list .item .text p {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: var(--text-base);
+}
+
+.chat-list .item .text h1 {
+    color: var(--color-bubble-in-text);
+    font-weight: var(--weight-medium);
+}
+
+.chat-list .item .text p {
+    color: var(--color-text-muted);
+    font-weight: var(--weight-regular);
+}
+
+.chat-list .item .time {
+    position: absolute;
+    color: var(--color-text-muted);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    top: var(--size-4);
+    right: var(--size-2);
+}
+
+.chat-list .item.active p, .chat-list .item.active h1 {
+    color: white;
+}
+
+.chat-list .item .message-number {
+    position: absolute;
+    border-radius: var(--radius-lg);
+    background-color: var(--color-text-muted);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    color: white;
+    right: var(--size-2);
+    bottom: var(--size-3);
+    padding: 1px var(--size-2) 0;
+}
+
+.chat-list .item.active .message-number {
+    background-color: white;
+}
+
+.chat-list .item.active .message-number p {
+    color: var(--color-accent);
+}
