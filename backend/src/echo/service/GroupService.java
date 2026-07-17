@@ -235,7 +235,7 @@ public class GroupService {
             if (group.getAdminsId().size() == 1) {
                 throw new RuntimeException("Group must have at least one admin.");
             }
-            removeAdmin(groupId, userId);
+            removeAdmin(groupId, userId, userId);
         }
 
         // remove user
