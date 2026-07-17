@@ -57,9 +57,18 @@ Users can enter the required information and start the process of resetting thei
 The home page is shown after login.
 In this page, users can see their conversations, contacts, groups, and messages, and use the main features of the messenger.
 
+* group and private conversations
+
 ![Home Page - conversation](docs/images/home-conversation.png)
 
+* create new conversation and info
+
 ![Home Page - new conversation and info](docs/images/home-newconversation-info.png)
+
+* setting
+
+![Home Page - setting1](docs/images/home-setting1.png)
+![Home Page - setting2](docs/images/home-setting2.png)
 
 ## Project Structure
 
