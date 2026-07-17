@@ -1,25 +1,20 @@
 package echo.dto.request;
 
-public class EditMessageRequest {
+public class DeleteMessageRequest {
     private final String messageId;
     private final String requesterId;
-    private final String newContent;
-
-    // constructor
-    public EditMessageRequest(String messageId, String requesterId, String newContent) {
+    
+    // conastructor
+    public DeleteMessageRequest(String messageId, String requesterId) {
         this.messageId = messageId;
         this.requesterId = requesterId;
-        this.newContent = newContent;
     }
-
+    
     // getters
     public String getMessageId() {
         return messageId;
     }
     public String getRequesterId() {
         return requesterId;
-    }
-    public String getNewContent() {
-        return newContent;
     }
 }
