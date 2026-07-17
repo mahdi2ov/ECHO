@@ -1,5 +1,3 @@
-// Client-side form validators (username/password rules, email format, etc.)
-
 export const required = (value, fieldName = "This field") => {
     return (!value || !value.trim()) ? `${fieldName} is required` : null;
 };
