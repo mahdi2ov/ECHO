@@ -13,7 +13,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> getContacts(String userId) {
+    public synchronized List<User> getContacts(String userId) {
         User user = userRepository.getUserById(userId);
         if (user == null) {
             throw new RuntimeException("User not found.");
@@ -27,7 +27,7 @@ public class UserService {
         return contacts;
     }
 
-    public List<User> getBlockedUsers(String userId) {
+    public synchronized List<User> getBlockedUsers(String userId) {
         User user = userRepository.getUserById(userId);
         if (user == null) {
             throw new RuntimeException("User not found.");
@@ -41,15 +41,15 @@ public class UserService {
         return blockedUsers;
     }
 
-    public List<User> listUsers() {
+    public synchronized List<User> listUsers() {
         return userRepository.getAllUsers();
     }
 
-    public User findUser(String userId) {
+    public synchronized User findUser(String userId) {
         return userRepository.getUserById(userId);
     }
 
-    public void deleteUser(String userId) {
+    public synchronized void deleteUser(String userId) {
         // cheking for user exist
         User user = userRepository.getUserById(userId); 
         if (user == null) {
@@ -60,7 +60,7 @@ public class UserService {
         userRepository.deleteUserById(userId);
     }
 
-    public User updateProfile(String userId , String username, String profileImagePath) {
+    public synchronized User updateProfile(String userId , String username, String profileImagePath) {
         // cheking for user exist
         User user = findUser(userId);
         if (user == null) {
@@ -76,7 +76,7 @@ public class UserService {
         return user;
     }
 
-    public void clideleteUser(String username) {
+    public synchronized void clideleteUser(String username) {
         // cheking for user exist
         User user = userRepository.getUserByUsername(username); 
         if (user == null) {

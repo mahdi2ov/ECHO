@@ -35,7 +35,7 @@ public class FileReportRepository implements ReportRepository {
 
     // read
     @Override
-    public Report getReportById(String id) {
+    public synchronized Report getReportById(String id) {
         for (Report report : inMemoryReportData) {
             if (report.getId().equals(id)) {
                 return report;
@@ -45,18 +45,18 @@ public class FileReportRepository implements ReportRepository {
     }
 
     @Override
-    public boolean existById(String id) {
+    public synchronized boolean existById(String id) {
         return getReportById(id) != null;
     }
 
     @Override
-    public List<Report> getAllReports() {
+    public synchronized List<Report> getAllReports() {
         return new ArrayList<>(inMemoryReportData);
     }
 
     // update
     @Override
-    public void updateReport(Report report) {
+    public synchronized void updateReport(Report report) {
         for (int i = 0; i < inMemoryReportData.size(); i++) {
             if (inMemoryReportData.get(i).getId().equals(report.getId())) {
                 inMemoryReportData.set(i, report);
@@ -68,7 +68,7 @@ public class FileReportRepository implements ReportRepository {
 
     // delete
     @Override
-    public void deleteReportById(String id) {
+    public synchronized void deleteReportById(String id) {
         for (int i = 0; i < inMemoryReportData.size(); i++) {
             if (inMemoryReportData.get(i).getId().equals(id)) {
                 inMemoryReportData.remove(i);
@@ -80,7 +80,7 @@ public class FileReportRepository implements ReportRepository {
 
     // util methods
     @Override
-    public List<Report> getReportsByReporterId(String id) {
+    public synchronized List<Report> getReportsByReporterId(String id) {
         List<Report> reportsFound = new ArrayList<>();
         for (int i = 0; i < inMemoryReportData.size(); i++) {
             if (inMemoryReportData.get(i).getReporterUserId().equals(id)) {
@@ -91,7 +91,7 @@ public class FileReportRepository implements ReportRepository {
     }
 
     @Override
-    public List<Report> getReportsByReportedMessageId(String id) {
+    public synchronized List<Report> getReportsByReportedMessageId(String id) {
         List<Report> reportsFound = new ArrayList<>();
         for (int i = 0; i < inMemoryReportData.size(); i++) {
             if (inMemoryReportData.get(i).getReportedMessageId().equals(id)) {
@@ -102,7 +102,7 @@ public class FileReportRepository implements ReportRepository {
     }
 
     // private util methods for using in this class
-    private void readFile() {
+    private synchronized void readFile() {
         inMemoryReportData.clear();
  
         try (BufferedReader reader = Files.newBufferedReader(reportData, StandardCharsets.UTF_8)) {
@@ -115,7 +115,7 @@ public class FileReportRepository implements ReportRepository {
         }
     }
     
-    private void writeFile() {
+    private synchronized void writeFile() {
         try (BufferedWriter writer = Files.newBufferedWriter(reportData, StandardCharsets.UTF_8)) {
             for (Report report : inMemoryReportData) {
                 writer.write(FileUtil.serializeReport(report));

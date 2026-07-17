@@ -29,14 +29,14 @@ public class FileConversationRepository implements ConversationRepository {
 
     // create
     @Override
-    public void saveConversation(Conversation conversation) {
+    public synchronized void saveConversation(Conversation conversation) {
         inMemoryConversationData.add(conversation);
         writeFile();
     }
 
     // read
     @Override
-    public Conversation getConversationById(String id) {
+    public synchronized Conversation getConversationById(String id) {
         for (Conversation conversation : inMemoryConversationData) {
             if (conversation.getId().equals(id)) {
                 return conversation;
@@ -46,18 +46,18 @@ public class FileConversationRepository implements ConversationRepository {
     }
 
     @Override
-    public boolean existById(String id) {
+    public synchronized boolean existById(String id) {
         return getConversationById(id) != null;
     }
 
     @Override
-    public List<Conversation> getAllConversations() {
+    public synchronized List<Conversation> getAllConversations() {
         return new ArrayList<>(inMemoryConversationData);
     }
 
     // update
     @Override
-    public void updateConversation(Conversation conversation) {
+    public synchronized void updateConversation(Conversation conversation) {
         for (int i = 0; i < inMemoryConversationData.size(); i++) {
             if (inMemoryConversationData.get(i).getId().equals(conversation.getId())) {
                 inMemoryConversationData.set(i, conversation);
@@ -69,7 +69,7 @@ public class FileConversationRepository implements ConversationRepository {
 
     // delete
     @Override
-    public void deleteById(String id) {
+    public synchronized void deleteById(String id) {
         for (int i = 0; i < inMemoryConversationData.size(); i++) {
             if (inMemoryConversationData.get(i).getId().equals(id)) {
                 inMemoryConversationData.remove(i);
@@ -81,7 +81,7 @@ public class FileConversationRepository implements ConversationRepository {
 
     // util methods
     @Override
-    public List<Conversation> getConversationsByUserId(String userId) {
+    public synchronized List<Conversation> getConversationsByUserId(String userId) {
         List<Conversation> conversationsFound = new ArrayList<>();
         for (int i = 0; i < inMemoryConversationData.size(); i++) {
             if (inMemoryConversationData.get(i).getMembersId().contains(userId)) {
@@ -92,7 +92,7 @@ public class FileConversationRepository implements ConversationRepository {
     }
 
     @Override
-    public List<Conversation> getConversationsByType(ConversationType type) {
+    public synchronized List<Conversation> getConversationsByType(ConversationType type) {
         List<Conversation> conversationsFound = new ArrayList<>();
         for (int i = 0; i < inMemoryConversationData.size(); i++) {
             if (inMemoryConversationData.get(i).getType() == type) {
@@ -103,7 +103,7 @@ public class FileConversationRepository implements ConversationRepository {
     }
 
     // private util methods for using in this class
-    private void readFile() {
+    private synchronized void readFile() {
         inMemoryConversationData.clear();
 
         try (BufferedReader reader = Files.newBufferedReader(conversationData, StandardCharsets.UTF_8)) {
@@ -116,7 +116,7 @@ public class FileConversationRepository implements ConversationRepository {
         }
     }
 
-    private void writeFile() {
+    private synchronized void writeFile() {
         try (BufferedWriter writer = Files.newBufferedWriter(conversationData, StandardCharsets.UTF_8)) {
             for (Conversation conversation : inMemoryConversationData) {
                 writer.write(FileUtil.serializeConversation(conversation));

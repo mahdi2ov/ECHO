@@ -44,11 +44,11 @@ public class AdminService {
     }
 
     // users methods
-    public List<User> listUsers() {
+    public synchronized List<User> listUsers() {
         return userService.listUsers();
     }
 
-    public String addUser(String username, String password, String confirmPassword, String email) {
+    public synchronized String addUser(String username, String password, String confirmPassword, String email) {
         try {
             authService.singup(username, password, confirmPassword, email);
             return null;
@@ -57,7 +57,7 @@ public class AdminService {
         }
     }
 
-    public String deleteUser(String userId) {
+    public synchronized String deleteUser(String userId) {
         try {
             userService.deleteUser(userId);
             return null;
@@ -67,7 +67,7 @@ public class AdminService {
     }
 
     // groups methods
-    public List<Group> listGroups() {
+    public synchronized List<Group> listGroups() {
         return groupService.listGroups();
     }
 
@@ -79,7 +79,7 @@ public class AdminService {
     //     }
     // }
 
-    public String addGroup(String ownerId, String name) {
+    public synchronized String addGroup(String ownerId, String name) {
         Group group = groupService.createGroup(ownerId, name);
         return group == null ? "Create group failed." : null;
     }
@@ -93,7 +93,7 @@ public class AdminService {
     //     }
     // }
 
-    public String addUserToGroup(String groupId, String userId) {
+    public synchronized String addUserToGroup(String groupId, String userId) {
         try {
             groupService.cliAddMember(groupId, userId);
             return null;
@@ -102,7 +102,7 @@ public class AdminService {
         }
     }
 
-    public String removeUserFromGroup(String groupId, String userId) {
+    public synchronized String removeUserFromGroup(String groupId, String userId) {
         try {
             groupService.cliRemoveMember(groupId, userId);
             return null;
@@ -112,11 +112,11 @@ public class AdminService {
     }
 
     // reports methods
-    public List<Report> viewReports() {
+    public synchronized List<Report> viewReports() {
         return chatService.getAllReports();
     }
 
-    public String resolveReport(String reportId) {
+    public synchronized String resolveReport(String reportId) {
         try {
             chatService.resolveReport(reportId);
             return null;

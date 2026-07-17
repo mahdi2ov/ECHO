@@ -175,7 +175,7 @@ public class ChatService {
     }
 
     // polling message method
-    public List<Message> getMessagesSince(String conversationId, LocalDateTime since) {
+    public synchronized List<Message> getMessagesSince(String conversationId, LocalDateTime since) {
         // check conversation for exist
         Conversation conversation = conversationRepository.getConversationById(conversationId);
         if (conversation == null) {
@@ -243,13 +243,13 @@ public class ChatService {
     }
     
     // report methods
-    public void addReport(String reportedMessageId, String reporterUserId, String reason) {
+    public synchronized void addReport(String reportedMessageId, String reporterUserId, String reason) {
         // creating a new report and save into database
         Report report = new Report(IdGenerator.nextReportId(), reportedMessageId, reporterUserId, reason);
         reportRepository.saveReport(report);
     }
 
-    public void resolveReport(String reportId) {
+    public synchronized void resolveReport(String reportId) {
         // check report for exist
         Report report = reportRepository.getReportById(reportId);
         if (report == null) {
@@ -261,12 +261,12 @@ public class ChatService {
         reportRepository.updateReport(report);
     }
 
-    public List<Report> getAllReports() {
+    public synchronized List<Report> getAllReports() {
         return reportRepository.getAllReports();
     }
 
     // conversation info method
-    public ChatInfoDTO getConversationInfo(String conversationId, String requesterId) {
+    public synchronized ChatInfoDTO getConversationInfo(String conversationId, String requesterId) {
         // getting conversation by id
         Conversation conversation = conversationRepository.getConversationById(conversationId);
         // check conversation for exist

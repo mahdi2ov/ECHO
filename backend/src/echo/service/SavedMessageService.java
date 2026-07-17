@@ -44,18 +44,18 @@ public class SavedMessageService {
         return conversation;
     }
 
-    public Conversation getSavedMessagesConversation(String userId) {
+    public synchronized Conversation getSavedMessagesConversation(String userId) {
         // generate id
         String conversationId = "SAVED_MESSAGE-" + userId;
 
         return conversationRepository.getConversationById(conversationId);
     }
 
-    public boolean hasSavedMessagesConversation(String userId) {
+    public synchronized boolean hasSavedMessagesConversation(String userId) {
         return getSavedMessagesConversation(userId) != null;
     }
 
-    public void deleteSavedMessagesConversation(String userId) {
+    public synchronized void deleteSavedMessagesConversation(String userId) {
         // generate id
         String conversationId = "SAVED_MESSAGE-" + userId;
 
@@ -96,11 +96,11 @@ public class SavedMessageService {
         return chatService.sendMessage(savedMessagesConversation.getId(), userId, messageContent);
     }
     
-    public void deleteMessage(String userId, String savedMessageId) {
+    public synchronized void deleteMessage(String userId, String savedMessageId) {
         chatService.deleteMessage(savedMessageId, userId);
     }
 
-    public List<Message> getSavedMessages(String userId) {
+    public synchronized List<Message> getSavedMessages(String userId) {
         // generate id
         String conversationId = "SAVED_MESSAGE-" + userId;
         
