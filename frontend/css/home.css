@@ -1,0 +1,34 @@
+#app {
+    display: contents;
+}
+
+.page-auth {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100dvh;
+    background-color: var(--color-bg);
+}
+
+.page-main {
+    display: grid;
+    grid-template-columns: 360px auto 360px;
+    height: 100dvh;
+    overflow: hidden;
+    padding: var(--size-4) var(--size-6);
+    background: inherit;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    height: 100%;
+    background-color: var(--color-bg);
+    border-radius: var(--radius-lg);
+    position: relative;
+}
+
+svg {
+    fill: var(--color-accent);
+}
