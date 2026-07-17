@@ -73,6 +73,7 @@ public class ConversationService {
         conversationRepository.updateConversation(conversation);
         return conversation;
     }
+    
     public synchronized Conversation removeMemberFromGroupConversation(String conversationId, String memberId) {
         // getting conversation if exists
         Conversation conversation = conversationRepository.getConversationById(conversationId);

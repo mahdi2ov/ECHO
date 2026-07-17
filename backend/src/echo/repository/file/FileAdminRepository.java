@@ -39,14 +39,14 @@ public class FileAdminRepository implements AdminRepository {
 
     // create
     @Override
-    public void saveAdmin(Admin admin) {
+    public synchronized void saveAdmin(Admin admin) {
         inMemoryAdminData.add(admin);
         writeFile();
     }
 
     // read
     @Override
-    public Admin getAdminByUsername(String username) {
+    public synchronized Admin getAdminByUsername(String username) {
         for (Admin admin : inMemoryAdminData) {
             if (admin.getUsername().equals(username)) {
                 return admin;
@@ -56,18 +56,18 @@ public class FileAdminRepository implements AdminRepository {
     }
 
     @Override
-    public boolean existByUsername(String username) {
+    public synchronized boolean existByUsername(String username) {
         return getAdminByUsername(username) != null;
     }
 
     @Override
-    public List<Admin> getAllAdmins() {
+    public synchronized List<Admin> getAllAdmins() {
         return new ArrayList<>(inMemoryAdminData);
     }
 
     // update
     @Override
-    public void updateAdmin(Admin admin) {
+    public synchronized void updateAdmin(Admin admin) {
         for (int i = 0; i < inMemoryAdminData.size(); i++) {
             if (inMemoryAdminData.get(i).getUsername().equals(admin.getUsername())) {
                 inMemoryAdminData.set(i, admin);
@@ -79,7 +79,7 @@ public class FileAdminRepository implements AdminRepository {
 
     // delete
     @Override
-    public void deleteAdminByUsername(String username) {
+    public synchronized void deleteAdminByUsername(String username) {
         for (int i = 0; i < inMemoryAdminData.size(); i++) {
             if (inMemoryAdminData.get(i).getUsername().equals(username)) {
                 inMemoryAdminData.remove(i);
@@ -90,7 +90,7 @@ public class FileAdminRepository implements AdminRepository {
     }
 
     // private util methods for using in this class
-    private void readFile() {
+    private synchronized void readFile() {
         inMemoryAdminData.clear();
         
         try (BufferedReader reader = Files.newBufferedReader(adminData, StandardCharsets.UTF_8)) {
@@ -103,7 +103,7 @@ public class FileAdminRepository implements AdminRepository {
         }
     }
 
-    private void writeFile() {
+    private synchronized void writeFile() {
         try (BufferedWriter writer = Files.newBufferedWriter(adminData, StandardCharsets.UTF_8)) {
             for (Admin admin : inMemoryAdminData) {
                 writer.write(FileUtil.serializeAdmin(admin));

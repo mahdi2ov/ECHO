@@ -29,14 +29,14 @@ public class FileMessageRepository implements MessageRepository {
 
     // create
     @Override
-    public void saveMessage(Message message) {
+    public synchronized void saveMessage(Message message) {
         inMemoryMessageData.add(message);
         writeFile();
     }
 
     // read
     @Override
-    public Message getMessageById(String id) {
+    public synchronized Message getMessageById(String id) {
         for (Message message : inMemoryMessageData) {
             if (message.getId().equals(id)) {
                 return message;
@@ -46,18 +46,18 @@ public class FileMessageRepository implements MessageRepository {
     }
 
     @Override
-    public boolean existById(String id) {
+    public synchronized boolean existById(String id) {
         return getMessageById(id) != null;
     }
 
     @Override
-    public List<Message> getAllMessages() {
+    public synchronized List<Message> getAllMessages() {
         return new ArrayList<>(inMemoryMessageData);
     }
 
     // update
     @Override
-    public void updateMessage(Message message) {
+    public synchronized void updateMessage(Message message) {
         for (int i = 0; i < inMemoryMessageData.size(); i++) {
             if (inMemoryMessageData.get(i).getId().equals(message.getId())) {
                 inMemoryMessageData.set(i, message);
@@ -69,7 +69,7 @@ public class FileMessageRepository implements MessageRepository {
 
     // delete
     @Override
-    public void deleteMessageById(String id) {
+    public synchronized void deleteMessageById(String id) {
         for (int i = 0; i < inMemoryMessageData.size(); i++) {
             if (inMemoryMessageData.get(i).getId().equals(id)) {
                 inMemoryMessageData.remove(i);
@@ -81,7 +81,7 @@ public class FileMessageRepository implements MessageRepository {
 
     // util methods
     @Override
-    public List<Message> getMessagesBySenderId(String senderId) {
+    public synchronized List<Message> getMessagesBySenderId(String senderId) {
         List<Message> messagesFound = new ArrayList<>();
         for (int i = 0; i < inMemoryMessageData.size(); i++) {
             if (inMemoryMessageData.get(i).getSenderId().equals(senderId)) {
@@ -92,7 +92,7 @@ public class FileMessageRepository implements MessageRepository {
     }
 
     @Override
-    public List<Message> getMessagesByConversationId(String conversationId) {
+    public synchronized List<Message> getMessagesByConversationId(String conversationId) {
         List<Message> messagesFound = new ArrayList<>();
         for (int i = 0; i < inMemoryMessageData.size(); i++) {
             if (inMemoryMessageData.get(i).getConversationId().equals(conversationId)) {
@@ -103,7 +103,7 @@ public class FileMessageRepository implements MessageRepository {
     }
 
     @Override
-    public List<Message> getMessagesByConversationIdSince(String conversationId, LocalDateTime since) {
+    public synchronized List<Message> getMessagesByConversationIdSince(String conversationId, LocalDateTime since) {
         List<Message> messagesFound = new ArrayList<>();
         for (int i = 0; i < inMemoryMessageData.size(); i++) {
             Message message = inMemoryMessageData.get(i);
@@ -115,7 +115,7 @@ public class FileMessageRepository implements MessageRepository {
     }
 
     // private util methods for using in this class
-    private void readFile() {
+    private synchronized void readFile() {
         inMemoryMessageData.clear();
 
         try (BufferedReader reader = Files.newBufferedReader(messageData, StandardCharsets.UTF_8)) {
@@ -128,7 +128,7 @@ public class FileMessageRepository implements MessageRepository {
         }
     }
 
-    private void writeFile() {
+    private synchronized void writeFile() {
         try (BufferedWriter writer = Files.newBufferedWriter(messageData, StandardCharsets.UTF_8)) {
             for (Message message : inMemoryMessageData) {
                 writer.write(FileUtil.serializeMessage(message));

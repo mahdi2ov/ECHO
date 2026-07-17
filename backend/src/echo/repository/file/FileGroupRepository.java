@@ -28,14 +28,14 @@ public class FileGroupRepository implements GroupRepository {
 
     // create
     @Override
-    public void saveGroup(Group group) {
+    public synchronized void saveGroup(Group group) {
         inMemoryGroupData.add(group);
         writeFile();
     }
 
     // read
     @Override
-    public Group getGroupById(String id) {
+    public synchronized Group getGroupById(String id) {
         for (Group group : inMemoryGroupData) {
             if (group.getId().equals(id)) {
                 return group;
@@ -45,7 +45,7 @@ public class FileGroupRepository implements GroupRepository {
     }
 
     @Override
-    public Group getGroupByConversationId(String conversationId) {
+    public synchronized Group getGroupByConversationId(String conversationId) {
         for (Group group : inMemoryGroupData) {
             if (group.getConversationId().equals(conversationId)) {
                 return group;
@@ -55,7 +55,7 @@ public class FileGroupRepository implements GroupRepository {
     }
 
     @Override
-    public Group getGroupByName(String name) {
+    public synchronized Group getGroupByName(String name) {
         for (Group group : inMemoryGroupData) {
             if (group.getName().equals(name)) {
                 return group;
@@ -65,18 +65,18 @@ public class FileGroupRepository implements GroupRepository {
     }
     
     @Override
-    public boolean existById(String id) {
+    public synchronized boolean existById(String id) {
         return getGroupById(id) != null;
     }
 
     @Override
-    public List<Group> getAllGroups() {
+    public synchronized List<Group> getAllGroups() {
         return new ArrayList<>(inMemoryGroupData);
     }
 
     // update
     @Override
-    public void updateGroup(Group group) {
+    public synchronized void updateGroup(Group group) {
         for (int i = 0; i < inMemoryGroupData.size(); i++) {
             if (inMemoryGroupData.get(i).getId().equals(group.getId())) {
                 inMemoryGroupData.set(i, group);
@@ -88,7 +88,7 @@ public class FileGroupRepository implements GroupRepository {
 
     // delete
     @Override
-    public void deleteGroupById(String id) {
+    public synchronized void deleteGroupById(String id) {
         for (int i = 0; i < inMemoryGroupData.size(); i++) {
             if (inMemoryGroupData.get(i).getId().equals(id)) {
                 inMemoryGroupData.remove(i);
@@ -99,7 +99,7 @@ public class FileGroupRepository implements GroupRepository {
     }
 
     @Override
-    public void deleteGroupByName(String name) {
+    public synchronized void deleteGroupByName(String name) {
         for (int i = 0; i < inMemoryGroupData.size(); i++) {
             if (inMemoryGroupData.get(i).getName().equals(name)) {
                 inMemoryGroupData.remove(i);
@@ -111,7 +111,7 @@ public class FileGroupRepository implements GroupRepository {
 
     // util methods
     @Override
-    public List<Group> getGroupsByName(String searchText) {
+    public synchronized List<Group> getGroupsByName(String searchText) {
         List<Group> groupsFound = new ArrayList<>();
         for (int i = 0; i < inMemoryGroupData.size(); i++) {
             if (inMemoryGroupData.get(i).getName().contains(searchText)) {
@@ -122,7 +122,7 @@ public class FileGroupRepository implements GroupRepository {
     }
 
     // private util methods for using in this class
-    private void readFile() {
+    private synchronized void readFile() {
         inMemoryGroupData.clear();
 
         try (BufferedReader reader = Files.newBufferedReader(groupData, StandardCharsets.UTF_8)) {
@@ -135,7 +135,7 @@ public class FileGroupRepository implements GroupRepository {
         }
     }
 
-    private void writeFile() {
+    private synchronized void writeFile() {
         try (BufferedWriter writer = Files.newBufferedWriter(groupData, StandardCharsets.UTF_8)) {
             for (Group group : inMemoryGroupData) {
                 writer.write(FileUtil.serializeGroup(group));

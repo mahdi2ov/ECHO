@@ -38,6 +38,7 @@ public class ContactService {
         // update user
         userRepository.updateUser(user);
     }
+    
     public synchronized void deleteContact(String userId, String contactId) {
         // user isn't him contact
         if (userId.equals(contactId)) {

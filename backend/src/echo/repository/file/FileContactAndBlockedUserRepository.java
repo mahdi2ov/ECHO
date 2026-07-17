@@ -35,7 +35,7 @@ public class FileContactAndBlockedUserRepository implements ContactAndBlockedUse
     /// contact
     // create
     @Override
-    public void addContact(String userId, String contactId) {
+    public synchronized void addContact(String userId, String contactId) {
         List<String> contacts = contactsByUserId.get(userId);
         
         if (contacts == null) {
@@ -51,13 +51,13 @@ public class FileContactAndBlockedUserRepository implements ContactAndBlockedUse
 
     // read
     @Override
-    public List<String> getContacts(String userId) {
+    public synchronized List<String> getContacts(String userId) {
         List<String> contacts = contactsByUserId.get(userId);
 
         return contacts == null ? new ArrayList<>() : new ArrayList<>(contacts);
     }
     @Override
-    public boolean isContact(String userId, String otherUserId) {
+    public synchronized boolean isContact(String userId, String otherUserId) {
         List<String> contacts = contactsByUserId.get(userId);
 
         if (contacts != null) {
@@ -69,7 +69,7 @@ public class FileContactAndBlockedUserRepository implements ContactAndBlockedUse
     // update
     // delete
     @Override
-    public void removeContact(String userId, String contactId) {
+    public synchronized void removeContact(String userId, String contactId) {
         List<String> contacts = contactsByUserId.get(userId);
         
         if (contacts != null) {
@@ -81,7 +81,7 @@ public class FileContactAndBlockedUserRepository implements ContactAndBlockedUse
     /// blockedUser
     // create
     @Override
-    public void blockUser(String userId, String blockedUserId) {
+    public synchronized void blockUser(String userId, String blockedUserId) {
         List<String> blockedUsers = blockedByUserId.get(userId);
 
         if (blockedUsers == null) {
@@ -97,14 +97,14 @@ public class FileContactAndBlockedUserRepository implements ContactAndBlockedUse
     
     // read
     @Override
-    public List<String> getBlockedUsers(String userId) {
+    public synchronized List<String> getBlockedUsers(String userId) {
         List<String> blockedUsers = blockedByUserId.get(userId);
         
         return blockedUsers == null ? new ArrayList<>() : new ArrayList<>(blockedUsers);
     }
     
     @Override
-    public boolean isBlocked(String userId, String otherUserId) {
+    public synchronized boolean isBlocked(String userId, String otherUserId) {
         List<String> blockedUsers = blockedByUserId.get(userId);
 
         if (blockedUsers != null) {
@@ -116,7 +116,7 @@ public class FileContactAndBlockedUserRepository implements ContactAndBlockedUse
     // update
     // delete
     @Override
-    public void unblockUser(String userId, String blockedUserId) {
+    public synchronized void unblockUser(String userId, String blockedUserId) {
         List<String> blockedUsers = blockedByUserId.get(userId);
 
         if (blockedUsers != null) {
@@ -126,7 +126,7 @@ public class FileContactAndBlockedUserRepository implements ContactAndBlockedUse
     }
     
     // private util methods for using in this class
-    private void readFile() {
+    private synchronized void readFile() {
         contactsByUserId.clear();
         blockedByUserId.clear();
 
@@ -152,7 +152,7 @@ public class FileContactAndBlockedUserRepository implements ContactAndBlockedUse
         }
     }
 
-    private void writeFile() {
+    private synchronized void writeFile() {
         try (BufferedWriter writer = Files.newBufferedWriter(contactAndBlockedUserData, StandardCharsets.UTF_8)) {
             Set<String> allUserIds = new HashSet<>();
             allUserIds.addAll(contactsByUserId.keySet());
