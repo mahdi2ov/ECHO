@@ -1,0 +1,115 @@
+.sidebar .search-result.open {
+    height: calc(100% - var(--size-14));
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    transition: scrollbar-color 0.3s;
+    padding: var(--size-4);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: var(--size-10);
+}
+
+.sidebar .search-result {
+    display: none;
+}
+
+.sidebar .search-result:hover {
+    scrollbar-color: var(--color-bg-secondary) transparent;
+}
+
+.sidebar .search-result::-webkit-scrollbar {
+    width: 5px;
+}
+
+.sidebar .search-result::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar .search-result::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: var(--radius-full);
+    transition: background-color 0.3s;
+}
+
+.sidebar .search-result:hover::-webkit-scrollbar-thumb {
+    background-color: var(--color-bg-secondary);
+}
+
+.sidebar .search-result .results {
+    background-color: var(--color-bg-secondary);
+    padding: var(--size-2);
+    width: 100%;
+    border-radius: var(--radius-lg);
+}
+
+.sidebar .search-result .header.chat {
+    padding: var(--size-2);
+    margin-bottom: var(--size-2);
+}
+
+.sidebar .search-result .header h1 {
+    color: var(--color-accent);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-medium);
+}
+
+.sidebar .search-result .results .item {
+    height: var(--size-14);
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    gap: var(--size-2);
+}
+
+.sidebar .search-result .results .item:hover {
+    background-color: var(--color-bg-tertiary);
+    border-radius: var(--radius-md);
+}
+
+.sidebar .search-result .results .item .profile {
+    width: var(--size-14);
+    height: 100%;
+    padding: var(--size-2);
+}
+
+.sidebar .search-result .results .item .profile img {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.sidebar .search-result .results .item .text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: calc(100% - var(--size-28));
+}
+
+/*.sidebar .search-result .results .item .text div {*/
+/*    height: var(--size-7);*/
+/*}*/
+
+.sidebar .search-result .results .item h1 {
+    font-size: var(--text-base);
+    line-height: var(--size-5);
+    font-weight: var(--weight-regular);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sidebar .search-result .results .item p {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-regular);
+    color: var(--color-text-muted);
+    line-height: var(--size-5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
