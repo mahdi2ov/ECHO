@@ -1,5 +1,3 @@
-// Entry script for login.html — wires the form to authController.login()
-
 import {login} from "../controller/authController.js";
 import {isLoggedIn} from "../model/state.js";
 import {showToast} from "../view/renderToast.js";
