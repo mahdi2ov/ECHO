@@ -1,0 +1,154 @@
+.sidebar .new-message {
+    display: none;
+}
+
+.sidebar .new-message.open {
+    position: absolute;
+    cursor: pointer;
+    border-radius: var(--radius-full);
+    background-color: var(--color-accent);
+    border: 1px solid var(--color-border);
+    width: var(--size-14);
+    height: var(--size-14);
+    bottom: var(--size-5);
+    right: var(--size-5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-base);
+}
+
+.sidebar .new-message:hover {
+    background-color: var(--color-accent-hover);
+}
+
+.sidebar .new-message svg {
+    fill: white;
+}
+
+.sidebar .container {
+    height: 100%;
+    min-height: 0;
+    padding-bottom: var(--size-2);
+}
+
+.sidebar .header.chat {
+    display: none;
+}
+
+.sidebar .header.chat.open {
+    padding: 0 var(--size-3);
+    height: var(--size-14);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.sidebar .header.chat.open .button {
+    display: none;
+}
+
+.sidebar .header.chat.open .button.open {
+    width: var(--size-14);
+    height: 100%;
+    padding: var(--size-2) var(--size-2) var(--size-2) 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sidebar .header.chat.open .button .btn:hover {
+    background-color: var(--color-bg-secondary);
+}
+
+.sidebar .header.chat.open .button.active .btn {
+    background-color: var(--color-bg-secondary);
+}
+
+.sidebar .hamburger-menu {
+    position: absolute;
+    top: var(--size-14);
+    left: var(--size-6);
+    width: 50%;
+    padding: var(--size-2);
+    background-color: var(--color-bg-secondary);
+    border-radius: var(--radius-lg);
+    z-index: 5;
+    transition: all var(--transition-base);
+    display: none;
+}
+
+.sidebar .hamburger-menu.open {
+    display: block;
+}
+
+.hamburger-menu li {
+    border-radius: var(--radius-md);
+    transition: background-color 0.15s;
+}
+
+.hamburger-menu li:hover {
+    background-color: var(--color-bg-tertiary);
+}
+
+.hamburger-menu .item {
+    display: block;
+    padding: var(--size-1) var(--size-3) var(--size-1) var(--size-8);
+    color: var(--color-text-primary);
+    font-size: var(--text-base);
+    position: relative;
+    cursor: pointer;
+}
+
+
+.hamburger-menu .icon {
+    position: absolute;
+    left: var(--size-1);
+    top: 50%;
+    transform: translateY(-55%);
+}
+
+.sidebar .input-search {
+    height: var(--size-10);
+    background-color: var(--color-bg-secondary);
+    border-radius: var(--radius-lg);
+    width: var(--size-72);
+    padding: 0 var(--size-10);
+    position: relative;
+    border: 2px solid var(--color-bg-secondary);
+}
+
+.sidebar .input-search input {
+    height: 100%;
+    width: 100%;
+    font-size: var(--text-lg);
+    font-weight: var(--weight-regular);
+}
+
+.sidebar .input-search input::placeholder {
+    color: #8c8c8c;
+}
+
+.sidebar .input-search .search {
+    position: absolute;
+    left: var(--size-2);
+    top: var(--size-2);
+}
+
+.sidebar .input-search .search svg {
+    fill: #8c8c8c;
+}
+
+.sidebar .input-search:has(input:focus) .search svg {
+    fill: var(--color-accent);
+}
+
+.sidebar .input-search:has(input:focus) {
+    border: 2px solid var(--color-accent);
+    background-color: var(--color-bg-tertiary);
+}
+
+.sidebar .input-search:has(input:focus) input::placeholder {
+    color: var(--color-accent-hover);
+}
