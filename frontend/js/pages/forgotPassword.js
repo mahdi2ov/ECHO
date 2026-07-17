@@ -1,5 +1,3 @@
-// Entry script for login.html — wires the form to authController.login()
-
 import {requestPasswordReset} from '../controller/authController.js';
 import {isLoggedIn} from '../model/state.js';
 import {showToast} from '../view/renderToast.js';
@@ -12,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     const form = qs(".form");
     const usernameInput = document.getElementById('username');
+    const emailInput = document.getElementById('email');
     const submitButton = qs("button[type='submit']", form);
     const successMessage = qs(".form-success");
     const setLoading = (isLoading) => {
@@ -22,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         setLoading(true);
         successMessage.hidden = true;
-        const result = await requestPasswordReset(usernameInput.value.trim());
+        const result = await requestPasswordReset(usernameInput.value.trim(), emailInput.value.trim());
         if (result.success) {
             successMessage.textContent = `Your temporary password is: ${result.tempPassword}  —  ` +
                 "use it to log in, then change it from Settings.";
