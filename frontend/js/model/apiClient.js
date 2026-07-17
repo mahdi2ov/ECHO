@@ -1,5 +1,3 @@
-// Thin fetch() wrapper around the backend REST API
-
 const DEFAULT_BASE_URL = "http://localhost:8080";
 
 class ApiClient {
@@ -9,7 +7,7 @@ class ApiClient {
         this.#baseUrl = baseUrl;
     }
 
-    async #request(path, {method = 'GET',body} = {}) {
+    async #request(path, {method = 'GET', body} = {}) {
         let response;
         try {
             response = await fetch(this.#baseUrl + path, {
@@ -33,29 +31,175 @@ class ApiClient {
         return payload?.data;
     }
 
-    // Authentication
+    // --- Auth ---
+
+    signup(username, email, password, confirmPassword) {
+        return this.#request('/auth/signup', {method: 'POST', body: {username, email, password, confirmPassword}});
+    }
 
     login(username, password) {
         return this.#request('/auth/login', {method: 'POST', body: {username, password}});
     }
 
-    signup(username,password,confirmPassword) {
-        return this.#request('/auth/signup',{method:'POST',body:{username,password,confirmPassword}});
+    forgotPassword(username, email) {
+        return this.#request('/auth/forgot-password', {method: 'POST', body: {username, email}});
     }
 
-    forgotPassword(username) {
-        return this.#request('/auth/forgot-password',{method:'POST',body:{username}});
+    logout() {
+        return this.#request('/auth/logout', {method: 'POST'});
     }
 
-    logout(userId) {
-        return this.#request('/auth/logout',{method:'POST',body:{userId}});
+    // --- Users ---
+
+    addContact(userId, otherUserId) {
+        return this.#request('/users/contacts', {method: 'POST', body: {userId, otherUserId}});
+    }
+
+    deleteContact(userId, otherUserId) {
+        return this.#request('/users/contacts', {method: 'DELETE', body: {userId, otherUserId}});
+    }
+
+    blockUser(userId, otherUserId) {
+        return this.#request('/users/blocked-users', {method: 'POST', body: {userId, otherUserId}});
+    }
+
+    unblockUser(userId, otherUserId) {
+        return this.#request('/users/blocked-users', {method: 'DELETE', body: {userId, otherUserId}});
+    }
+
+    getUserProfile(userId) {
+        return this.#request('/users/profile/get', {method: 'POST', body: {userId}});
+    }
+
+    // NOTE: `theme` is NOT part of ProfileRequest in the final contract —
+    // theme is local-only (see state.js), never sent to the server.
+    updateProfile(userId, {username, profileImagePath} = {}) {
+        return this.#request('/users/profile', {
+            method: 'PUT',
+            body: {userId, username, profileImagePath},
+        });
+    }
+
+    listContacts(userId) {
+        return this.#request('/users/contacts/list', {method: 'POST', body: {userId}});
+    }
+
+    listBlockedUsers(userId) {
+        return this.#request('/users/blocked-users/list', {method: 'POST', body: {userId}});
+    }
+
+    // --- Groups ---
+
+    createGroup(requesterId, name) {
+        return this.#request('/groups', {method: 'POST', body: {requesterId, name}});
+    }
+
+    // NOTE: the contract deletes a group by {requesterId, name}, not by
+    // id — confirm with your teammate what happens with duplicate names.
+    deleteGroup(requesterId, name) {
+        return this.#request('/groups', {method: 'DELETE', body: {requesterId, name}});
+    }
+
+    updateGroup(requesterId, groupId, {name, description, profileImagePath} = {}) {
+        return this.#request('/groups', {
+            method: 'PUT',
+            body: {requesterId, groupId, name, description, profileImagePath},
+        });
+    }
+
+    addGroupMember(groupId, requesterId, userId) {
+        return this.#request('/groups/members/add', {method: 'POST', body: {requesterId, groupId, userId}});
+    }
+
+    removeGroupMember(groupId, requesterId, userId) {
+        return this.#request('/groups/members/remove', {method: 'DELETE', body: {requesterId, groupId, userId}});
+    }
+
+    addGroupAdmin(groupId, requesterId, userId) {
+        return this.#request('/groups/admins/add', {method: 'POST', body: {requesterId, groupId, userId}});
+    }
+
+    removeGroupAdmin(groupId, requesterId, userId) {
+        return this.#request('/groups/admins/remove', {method: 'DELETE', body: {requesterId, groupId, userId}});
+    }
+
+    getGroupMembers(groupId) {
+        return this.#request('/groups/members/list', {method: 'POST', body: {groupId}});
+    }
+
+    // --- Chat ---
+    sendMessage(senderId, conversationId, content, attachment = {}) {
+        const {
+            attachmentOriginalName = '',
+            attachmentMimeType = '',
+            attachmentBase64 = '',
+        } = attachment;
+        return this.#request('/messages', {
+            method: 'POST',
+            body: {senderId, conversationId, content, attachmentOriginalName, attachmentMimeType, attachmentBase64},
+        });
+    }
+
+    deleteMessage(messageId, requesterId) {
+        return this.#request(`/messages/${messageId}`, {method: 'DELETE', body: {messageId, requesterId}});
+    }
+
+    editMessage(messageId, requesterId, newContent) {
+        return this.#request(`/messages/${messageId}`, {
+            method: 'PUT',
+            body: {messageId, requesterId, newContent},
+        });
+    }
+
+    reactToMessage(messageId, userId, reactionType) {
+        return this.#request(`/messages/${messageId}/reactions`, {
+            method: 'POST',
+            body: {messageId, userId, reactionType},
+        });
+    }
+
+    removeReaction(messageId, userId) {
+        return this.#request(`/messages/${messageId}/reactions/${userId}`, {
+            method: 'DELETE',
+            body: {messageId, userId},
+        });
+    }
+
+    reportMessage(reportedMessageId, reporterUserId, reason) {
+        return this.#request('/reports', {method: 'POST', body: {reportedMessageId, reporterUserId, reason}});
+    }
+
+    listConversations(userId) {
+        return this.#request('/conversations/list', {method: 'POST', body: {userId}});
+    }
+
+    getConversationInfo(conversationId, requesterId) {
+        return this.#request('/conversations/info', {method: 'POST', body: {conversationId, requesterId}});
+    }
+
+    getMessages(conversationId, since) {
+        const sinceValue = since ?? 'Date: 2000-01-01, Time: 00:00:00';
+        const query = `?conversationId=${encodeURIComponent(conversationId)}&since=${encodeURIComponent(sinceValue)}`;
+        return this.#request(`/messages${query}`);
+    }
+
+    // --- Saved messages ---
+
+    saveMessage(userId, messageId) {
+        return this.#request('/saved-messages', {method: 'POST', body: {userId, messageId}});
+    }
+
+    deleteSavedMessage(userId, messageId) {
+        return this.#request('/saved-messages', {method: 'DELETE', body: {userId, messageId}});
+    }
+
+    listSavedMessages(userId) {
+        return this.#request(`/saved-messages/${userId}`);
     }
 }
 
-// Special API error
-
 export class ApiError extends Error {
-    constructor(message,status,payload) {
+    constructor(message, status, payload) {
         super(message);
         this.name = 'ApiError';
         this.status = status;
