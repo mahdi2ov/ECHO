@@ -1,7 +1,3 @@
-// Chat Info panel logic: block/add-contact (private chats) and
-// leave/add-member/edit/history (groups). Now that ChatInfoDTO includes
-// otherUserId/groupId, block/add-contact/leave-group are fully wired.
-
 import {qs} from '../util/domHelpers.js';
 import {apiClient} from '../model/apiClient.js';
 import {getUserId} from '../model/state.js';
@@ -10,7 +6,6 @@ import {showModal} from '../view/renderModal.js';
 import {renderChatInfo} from '../view/renderChatInfo.js';
 import {leaveGroup} from './groupController.js';
 
-// The last-loaded ChatInfoDTO: {conversationId, title, subtitle, type, otherUserId, groupId}
 let current = null;
 
 export const init = () => {
@@ -71,27 +66,19 @@ const handleAction = (action) => {
             });
             break;
 
-        // TODO: needs a "pick a contact" UI — wire once
-        // newConversationController.js's contact list supports selection
-        // for this purpose specifically.
+
         case 'add-member':
             showToast('Add member UI not built yet', 'error');
             break;
 
-        // TODO: needs an edit form/modal for name/description/photo.
         case 'edit-group':
             showToast('Edit group UI not built yet', 'error');
             break;
 
-        // NOTE: ConversationDTO has an `archived` flag but the contract
-        // has no endpoint to actually set it — raise with your teammate.
         case 'archive':
             showToast('Archiving is not supported by the backend yet', 'error');
             break;
 
-        // NOTE: editHistory exists per-message (MessageDTO) but there's no
-        // endpoint to fetch deleted/edited history in bulk for a whole
-        // conversation — raise with your teammate.
         case 'history':
             showToast('Message history is not supported by the backend yet', 'error');
             break;
