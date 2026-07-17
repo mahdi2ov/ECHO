@@ -48,9 +48,9 @@ public class AdminService {
         return userService.listUsers();
     }
 
-    public String addUser(String username, String password, String confirmPassword) {
+    public String addUser(String username, String password, String confirmPassword, String email) {
         try {
-            authService.singup(username, password, confirmPassword);
+            authService.singup(username, password, confirmPassword, email);
             return null;
         } catch (RuntimeException exception) {
             return exception.getMessage();
@@ -71,27 +71,27 @@ public class AdminService {
         return groupService.listGroups();
     }
 
-    public List<String> listGroupMembers(String groupId) {
-        try {
-            return groupService.getGroupMembers(groupId);
-        } catch (RuntimeException exception) {
-            return null;
-        }
-    }
+    // public List<String> listGroupMembers(String groupId) {
+    //     try {
+    //         return groupService.getGroupMembers(groupId);
+    //     } catch (RuntimeException exception) {
+    //         return null;
+    //     }
+    // }
 
     public String addGroup(String ownerId, String name) {
         Group group = groupService.createGroup(ownerId, name);
         return group == null ? "Create group failed." : null;
     }
 
-    public String deleteGroup(String groupId) {
-        try {
-            groupService.deleteGroupById(groupId);
-            return null;
-        } catch (RuntimeException exception) {
-            return exception.getMessage();
-        }
-    }
+    // public String deleteGroup(String groupId) {
+    //     try {
+    //         groupService.deleteGroupById(groupId);
+    //         return null;
+    //     } catch (RuntimeException exception) {
+    //         return exception.getMessage();
+    //     }
+    // }
 
     public String addUserToGroup(String groupId, String userId) {
         try {

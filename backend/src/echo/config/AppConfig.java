@@ -9,6 +9,7 @@ public class AppConfig {
     
     // database
     private static final String DATA_PATH = "backend/data";
+    private static final String MEDIA_DIR_PATH = "backend/data/media";
 
     private static final String USERS_PATH= "backend/data/users.txt";
     private static final String CONVERSATIONS_PATH = "backend/data/conversations.txt";
@@ -48,6 +49,9 @@ public class AppConfig {
     }
     public static String getDataPath() {
         return DATA_PATH;
+    }
+    public static String getMediaDirPath() {
+        return MEDIA_DIR_PATH;
     }
     public static String getUsersPath() {
         return USERS_PATH;

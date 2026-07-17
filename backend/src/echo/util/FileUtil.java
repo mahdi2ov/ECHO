@@ -53,7 +53,7 @@ public class FileUtil {
     public static String serializeMessage(Message message) {
         String editHistory = serializeEditHistory(message.getEditHistory());
         String reactions = serializeReactions(message.getReactions());
-        String attachment = serializeAttachment(message.getAttachment())
+        String attachment = serializeAttachment(message.getAttachment());
 
         return String.format("%s||%s||%s||%s||%s||%s||%s||%s||%s||%s", escape(message.getId()), escape(message.getSenderId()),
                     escape(message.getConversationId()), escape(message.getContent()), escape(DateTimeUtil.format(message.getCreatedAt())),
