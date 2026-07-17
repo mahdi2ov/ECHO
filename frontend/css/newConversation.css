@@ -1,0 +1,219 @@
+.sidebar .header.new-conversation.open {
+    padding: 0 var(--size-3);
+    height: var(--size-14);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-bottom: var(--size-6);
+}
+
+.sidebar .header.new-conversation {
+    display: none;
+}
+
+.sidebar .header.new-conversation.open .button.back {
+    width: var(--size-14);
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--size-2) var(--size-2) var(--size-2) 0;
+    border-radius: var(--radius-full);
+}
+
+.sidebar .header.new-conversation.open .button.back:hover .btn {
+    background-color: var(--color-bg-secondary);;
+}
+
+.sidebar .header.new-conversation .text {
+    height: var(--size-10);
+    width: var(--size-72);
+    position: relative;
+}
+
+.sidebar .header.new-conversation .text h1 {
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-medium);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-45%);
+    left: var(--size-2);
+}
+
+.sidebar .panel.new-conversation.open {
+    width: 100%;
+    display: block;
+    height: calc(100% - var(--size-20));
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    transition: scrollbar-color 0.3s;
+}
+
+.sidebar .panel.new-conversation {
+    display: none;
+}
+
+.sidebar .panel.new-conversation .container {
+    margin: var(--size-6) var(--size-4);
+    background-color: var(--color-bg-secondary);
+    padding: var(--size-3);
+    border-radius: var(--radius-lg);
+    height: max-content;
+}
+
+.sidebar .panel.new-conversation .input-group {
+    margin: var(--size-6) 0;
+
+}
+
+.new-conversation.panel .input-group {
+    position: relative;
+}
+
+.new-conversation.panel .input-field {
+    width: 100%;
+    height: var(--size-12);
+    padding: 0 var(--size-3);
+    font-size: var(--text-sm);
+    color: var(--color-text-primary);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-md);
+    transition: border-color var(--transition-fast);
+}
+
+.new-conversation.panel .input-field:focus {
+    border-color: var(--color-accent);
+    background-color: inherit;
+}
+
+.new-conversation.panel .input-label {
+    position: absolute;
+    left: var(--size-3);
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
+    pointer-events: none;
+    transition: all var(--transition-fast);
+    width: max-content;
+    padding: 0 var(--size-2);
+}
+
+.new-conversation.panel .input-field:focus ~ .input-label,
+.new-conversation.panel .input-field:not(:placeholder-shown) ~ .input-label {
+    top: 0;
+    right: var(--size-3);
+    transform: translateY(-50%);
+    font-size: var(--text-sm);
+    color: var(--color-accent);
+    background-color: var(--color-bg-secondary);
+    padding: 0 var(--size-1);
+}
+
+.new-conversation.panel .input-field:focus ~ .input-label {
+    color: var(--color-accent);
+}
+
+.new-conversation.panel .input-field:not(:focus):not(:placeholder-shown) ~ .input-label {
+    color: var(--color-text-secondary);
+}
+
+.new-conversation.panel .input-field.error {
+    border-color: var(--color-danger);
+}
+
+.new-conversation.panel .input-field.error:focus ~ .input-label,
+.new-conversation.panel .input-field.error:not(:placeholder-shown) ~ .input-label {
+    color: var(--color-danger);
+}
+
+.contacts-list {
+    margin: var(--size-3) 0;
+    min-height: 0;
+    max-height: var(--size-80);
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    transition: scrollbar-color 0.3s;
+    background-color: var(--color-bg);
+    border-radius: var(--radius-md);
+}
+
+.contacts-list:hover {
+    scrollbar-color: var(--color-bg-secondary) transparent;
+}
+
+.contacts-list::-webkit-scrollbar {
+    width: 5px;
+}
+
+.contacts-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.contacts-list::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: var(--radius-full);
+    transition: background-color 0.3s;
+}
+
+.contacts-list .item {
+    cursor: pointer;
+    height: calc(var(--size-14));
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+    position: relative;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding-right: var(--size-3);
+}
+
+.contacts-list .item:hover {
+    background-color: var(--color-bg-tertiary);
+}
+
+
+.contacts-list .item .profile {
+    width: var(--size-12);
+    height: var(--size-12);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    margin: var(--size-2) var(--size-3);
+}
+
+.contacts-list .item .profile img {
+    width: 100%;
+    height: 100%;
+}
+
+.contacts-list .item .text {
+    width: var(--size-40);
+    display: block;
+    justify-content: center;
+}
+
+.contacts-list .item .text h1,
+.contacts-list .item .text p {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: var(--text-sm);
+}
+
+.contacts-list .item .text h1 {
+    color: var(--color-bubble-in-text);
+    font-weight: var(--weight-medium);
+}
+
+.contacts-list .item .text p {
+    color: var(--color-text-muted);
+    font-weight: var(--weight-regular);
+}
