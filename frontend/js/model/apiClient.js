@@ -71,8 +71,6 @@ class ApiClient {
         return this.#request('/users/profile/get', {method: 'POST', body: {userId}});
     }
 
-    // NOTE: `theme` is NOT part of ProfileRequest in the final contract —
-    // theme is local-only (see state.js), never sent to the server.
     updateProfile(userId, {username, profileImagePath} = {}) {
         return this.#request('/users/profile', {
             method: 'PUT',
@@ -94,8 +92,6 @@ class ApiClient {
         return this.#request('/groups', {method: 'POST', body: {requesterId, name}});
     }
 
-    // NOTE: the contract deletes a group by {requesterId, name}, not by
-    // id — confirm with your teammate what happens with duplicate names.
     deleteGroup(requesterId, name) {
         return this.#request('/groups', {method: 'DELETE', body: {requesterId, name}});
     }
