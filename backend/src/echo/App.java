@@ -1,14 +1,8 @@
 package echo;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.FileAlreadyExistsException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 import java.net.InetSocketAddress;
+import java.util.concurrent.Executors;
 
 import com.sun.net.httpserver.HttpServer;
 
@@ -19,7 +13,6 @@ import echo.controller.GroupController;
 import echo.controller.SavedMessagesController;
 import echo.controller.UserController;
 import echo.network.http.ECHOHttp;
-import echo.network.websocket.ECHOWebSocket;
 import echo.repository.AdminRepository;
 import echo.repository.ConversationRepository;
 import echo.repository.GroupRepository;
@@ -56,6 +49,7 @@ public class App {
         }
     }
 
+    /// creating and wiring repository, validator, manager, service, controller and creating http server
     private static void startApplication() throws IOException {
         // repository
         UserRepository userRepository = new FileUserRepository();
@@ -88,19 +82,14 @@ public class App {
         ChatController chatController = new ChatController(chatService, conversationService, groupRepository, userService);
         SavedMessagesController savedMessagesController = new SavedMessagesController(savedMessageService);
 
-        // websocket server
-        ECHOWebSocket webSocketServer = new ECHOWebSocket(AppConfig.getWebsocketPort());
-        webSocketServer.start();
-
         // http server
         HttpServer httpServer = HttpServer.create(new InetSocketAddress(AppConfig.getHttpPort()), 0);
         httpServer.createContext("/", new ECHOHttp(authController, userController, groupController, chatController,
-                                                                savedMessagesController, messageRepository, webSocketServer));
+                                                                savedMessagesController));
         httpServer.setExecutor(Executors.newCachedThreadPool());
         httpServer.start();
 
         System.out.println("HTTP server is running on port " + AppConfig.getHttpPort());
-        System.out.println("WebSocket server is running on port " + AppConfig.getWebsocketPort());
         System.out.println("Admin service is ready: " + (adminService != null));
     }
 }
