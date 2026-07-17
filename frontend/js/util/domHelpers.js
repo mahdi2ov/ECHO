@@ -1,5 +1,3 @@
-// Small, dependency-free DOM helpers shared across controllers and views.
-
 export const qs = (selector, scope = document) => scope.querySelector(selector);
 
 export const qsa = (selector, scope = document) => [...scope.querySelectorAll(selector)];
@@ -31,9 +29,6 @@ export const formatRelativeTime = (timestamp) => {
     return date.toLocaleDateString();
 };
 
-// The backend returns timestamps as "Date: 2026-07-16, Time: 01:23:45"
-// instead of ISO-8601, so new Date(str) won't parse them directly.
-// Converts to a real Date object, or null if the string doesn't match.
 export const parseBackendDate = (str) => {
     const match = /Date:\s*([\d-]+),\s*Time:\s*([\d:]+)/.exec(str ?? '');
     if (!match) return null;
@@ -41,9 +36,6 @@ export const parseBackendDate = (str) => {
     return Number.isNaN(date.getTime()) ? null : date;
 };
 
-// Reverse of parseBackendDate — formats a JS Date into the backend's
-// custom "Date: YYYY-MM-DD, Time: HH:MM:SS" string, needed when polling
-// with a `since` cursor.
 export const formatBackendDate = (date) => {
     const pad = (n) => String(n).padStart(2, '0');
     const datePart = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
