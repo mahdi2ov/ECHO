@@ -2,9 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>ECHO</title>
+    <link rel="icon" type="image/svg+xml" href="/frontend/assets/logo/logo.svg">
 </head>
 <body>
-
+<script type="module">
+    import {isLoggedIn} from './js/model/state.js';
+    window.location.href = isLoggedIn() ? 'pages/home.html' : 'pages/login.html';
+</script>
 </body>
 </html>

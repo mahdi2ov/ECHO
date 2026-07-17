@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ECHO</title>
+    <link rel="icon" type="image/svg+xml" href="/frontend/assets/logo/logo.svg">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/chat.css">
+    <link rel="stylesheet" href="../css/chatInfo.css">
+    <link rel="stylesheet" href="../css/chatList.css">
+    <link rel="stylesheet" href="../css/searchChatList.css">
+    <link rel="stylesheet" href="../css/setting.css">
+    <link rel="stylesheet" href="../css/toast.css">
+    <link rel="stylesheet" href="../css/newConversation.css">
+    <script type="module" src="../js/pages/home.js" defer></script>
+    <script type="module" src="../js/util/theme.js" defer></script>
+</head>
+<body>
+<div id="app">
+    <div class="container page-main">
+        <!-- sidebar contains setting, chat-list, search in chat-list -->
+        <div class="sidebar">
+            <div class="container">
+                <!-- chat-list and search result header -->
+                <div class="header chat open">
+                    <div class="button open menu">
+                        <div class="btn btn-icon-only">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 -960 960 960" width="28px">
+                                <path d="M120-240v-66.67h720V-240H120Zm0-206.67v-66.66h720v66.66H120Zm0-206.66V-720h720v66.67H120Z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="button back">
+                        <div class="btn btn-icon-only">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 -960 960 960" width="28px">
+                                <path d="M359.33-241.33 120-480.67 359.33-720l47.34 47.33L248-514h592v66.67H248l158.67 158.66-47.34 47.34Z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="input-search">
+                        <label for="search"></label>
+                        <input placeholder="Search" type="text" name="search" id="search">
+                        <div class="search">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                                <path d="M792-120.67 532.67-380q-30 25.33-69.67 39.67Q423.33-326 378.67-326q-108.34 0-183.5-75.17Q120-476.33 120-583.33t75.17-182.17q75.16-75.17 182.83-75.17 107 0 181.83 75.17 74.84 75.17 74.84 182.17 0 43.33-14 83-14 39.66-40.67 73l260 258.66-48 48Zm-414-272q79 0 134.5-55.83T568-583.33q0-79-55.5-134.84Q457-774 378-774q-79.67 0-135.5 55.83-55.83 55.84-55.83 134.84T242.5-448.5q55.83 55.83 135.5 55.83Z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="hamburger-menu" id="hamburgerMenu">
+                        <ul>
+                            <li>
+                                <div class="item setting-button">
+                                    <div class="icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960"
+                                             width="18px">
+                                            <path d="m382-80-18.67-126.67q-17-6.33-34.83-16.66-17.83-10.34-32.17-21.67L178-192.33 79.33-365l106.34-78.67q-1.67-8.33-2-18.16-.34-9.84-.34-18.17 0-8.33.34-18.17.33-9.83 2-18.16L79.33-595 178-767.67 296.33-715q14.34-11.33 32.34-21.67 18-10.33 34.66-16L382-880h196l18.67 126.67q17 6.33 35.16 16.33 18.17 10 31.84 22L782-767.67 880.67-595l-106.34 77.33q1.67 9 2 18.84.34 9.83.34 18.83 0 9-.34 18.5Q776-452 774-443l106.33 78-98.66 172.67-118-52.67q-14.34 11.33-32 22-17.67 10.67-35 16.33L578-80H382Zm55.33-66.67h85l14-110q32.34-8 60.84-24.5T649-321l103.67 44.33 39.66-70.66L701-415q4.33-16 6.67-32.17Q710-463.33 710-480q0-16.67-2-32.83-2-16.17-7-32.17l91.33-67.67-39.66-70.66L649-638.67q-22.67-25-50.83-41.83-28.17-16.83-61.84-22.83l-13.66-110h-85l-14 110q-33 7.33-61.5 23.83T311-639l-103.67-44.33-39.66 70.66L259-545.33Q254.67-529 252.33-513 250-497 250-480q0 16.67 2.33 32.67 2.34 16 6.67 32.33l-91.33 67.67 39.66 70.66L311-321.33q23.33 23.66 51.83 40.16 28.5 16.5 60.84 24.5l13.66 110Zm43.34-200q55.33 0 94.33-39T614-480q0-55.33-39-94.33t-94.33-39q-55.67 0-94.5 39-38.84 39-38.84 94.33t38.84 94.33q38.83 39 94.5 39ZM480-480Z"/>
+                                        </svg>
+                                    </div>
+                                    <p>setting</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item">
+                                    <div class="icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960"
+                                             width="18px">
+                                            <path d="m480-260 157.33-157.33L592-462.67 513.33-384v-190h-66.66v190L368-462.67l-45.33 45.34L480-260ZM186.67-662.67v476h586.66v-476H186.67Zm0 542.67q-27.5 0-47.09-19.58Q120-159.17 120-186.67v-519q0-11.25 3.5-21.7t10.5-19.3l51.33-67.66q9-12 23.13-18.84Q222.59-840 238-840h483.33q15.42 0 29.54 6.83Q765-826.33 774-814.33l52 67.66q7 8.85 10.5 19.3 3.5 10.45 3.5 21.7v519q0 27.5-19.58 47.09Q800.83-120 773.33-120H186.67Zm16.66-609.33H756l-35.61-44H238.67l-35.34 44ZM480-424.67Z"/>
+                                        </svg>
+                                    </div>
+                                    <p>archived</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item">
+                                    <div class="icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960"
+                                             width="18px">
+                                            <path d="M200-120v-656.67q0-27 19.83-46.83 19.84-19.83 46.84-19.83h426.66q27 0 46.84 19.83Q760-803.67 760-776.67V-120L480-240 200-120Zm66.67-101.33L480-312l213.33 90.67v-555.34H266.67v555.34Zm0-555.34h426.66-426.66Z"/>
+                                        </svg>
+                                    </div>
+                                    <p>saved message</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- chat-list -->
+                <div class="chat-list open">
+                    <div class="item saved-message">
+                        <div class="profile">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960"
+                                 width="40px">
+                                <path d="M200-120v-656.67q0-27 19.83-46.83 19.84-19.83 46.84-19.83h426.66q27 0 46.84 19.83Q760-803.67 760-776.67V-120L480-240 200-120Zm66.67-101.33L480-312l213.33 90.67v-555.34H266.67v555.34Zm0-555.34h426.66-426.66Z"/>
+                            </svg>
+                        </div>
+                        <div class="text">
+                            <div class="title">
+                                <h1>
+                                    Saved Message
+                                </h1>
+                            </div>
+                            <div class="last-message">
+                                <p>
+                                    news newsnewsnewsnewsnewsnewsnewsnewsnewsnewsnewsnews
+                                </p>
+                            </div>
+                        </div>
+                        <div class="time">
+                            <p>12:12</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- chat-list search result -->
+                <div class="search-result">
+                    <div class="results chats">
+                        <div class="header">
+                            <h1>
+                                Chats
+                            </h1>
+                        </div>
+                        <div class="item">
+                            <div class="profile">
+                                <img src="../assets/profile/img.png" alt="">
+                            </div>
+                            <div class="text">
+                                <div class="name">
+                                    <h1>
+                                        this is testthis is testthis is testthis is testthis is testthis is test
+                                    </h1>
+                                </div>
+                                <div class="id">
+                                    <p>
+                                        @Mahdi@Mahdi@Mahdi@Mahdi@Mahdi@Mahdi@Mahdi@Mahdi@Mahdi@Mahdi
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="results groups">
+                        <div class="header">
+                            <h1>
+                                Groups
+                            </h1>
+                        </div>
+                        <div class="item">
+                            <div class="profile">
+                                <img src="../assets/profile/img.png" alt="">
+                            </div>
+                            <div class="text">
+                                <div class="name">
+                                    <h1>
+                                        this is testthis is testthis is testthis is testthis is testthis is test
+                                    </h1>
+                                </div>
+                                <div class="id">
+                                    <p>
+                                        @Mahdi@Mahdi@Mahdi@Mahdi@Mahdi@Mahdi@Mahdi@Mahdi@Mahdi@Mahdi
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- setting header -->
+                <div class="header setting">
+                    <div class="button back">
+                        <div class="btn btn-icon-only">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 -960 960 960" width="28px">
+                                <path d="M359.33-241.33 120-480.67 359.33-720l47.34 47.33L248-514h592v66.67H248l158.67 158.66-47.34 47.34Z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="text">
+                        <h1>
+                            Setting
+                        </h1>
+                    </div>
+                </div>
+                <!-- new-conversation header -->
+                <div class="header new-conversation">
+                    <div class="button back">
+                        <div class="btn btn-icon-only">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 -960 960 960" width="28px">
+                                <path d="M359.33-241.33 120-480.67 359.33-720l47.34 47.33L248-514h592v66.67H248l158.67 158.66-47.34 47.34Z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="text"><h1>New Conversation</h1></div>
+                </div>
+                <!-- setting -->
+                <div class="settings">
+                    <div class="profile">
+                        <div class="image">
+                            <img src="../assets/profile/img.png" alt="">
+                        </div>
+                    </div>
+                    <div class="account-data personal">
+                        <form autocomplete="off" class="form" novalidate>
+                            <div class="item name">
+                                <div class="title">
+                                    <div class="input-group">
+                                        <input type="text" autocomplete="off" id="name" placeholder=" "
+                                               class="input-field" value="Mahdi">
+                                        <label for="name" class="input-label">Name</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item last-name">
+                                <div class="title">
+                                    <div class="input-group">
+                                        <input type="text" autocomplete="off" id="last-name" placeholder=" "
+                                               class="input-field" value="Oveysi">
+                                        <label for="last-name" class="input-label">Last Name</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item id">
+                                <div class="title">
+                                    <div class="input-group">
+                                        <input type="text" autocomplete="off" id="username" placeholder=" "
+                                               class="input-field" value="channel.com">
+                                        <label for="username" class="input-label">Username</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item bio">
+                                <div class="title">
+                                    <div class="input-group">
+                                        <input type="text" autocomplete="off" id="bio" placeholder=" "
+                                               class="input-field" value="this is test">
+                                        <label for="bio" class="input-label">Bio</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-block btn-primary">
+                                Confirm
+                            </button>
+                        </form>
+                    </div>
+                    <div class="account-data theme">
+                        <div class="header">
+                            <h1>
+                                Color Theme
+                            </h1>
+                        </div>
+                        <div class="themes">
+                            <div class="row">
+                                <div class="item" data-theme="indigo">
+                                    <div class="color"></div>
+                                </div>
+                                <div class="item" data-theme="blue">
+                                    <div class="color"></div>
+                                </div>
+                                <div class="item" data-theme="teal">
+                                    <div class="color"></div>
+                                </div>
+                                <div class="item" data-theme="green">
+                                    <div class="color"></div>
+                                </div>
+                                <div class="item" data-theme="yellow">
+                                    <div class="color"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="item" data-theme="orange">
+                                    <div class="color"></div>
+                                </div>
+                                <div class="item" data-theme="salmon">
+                                    <div class="color"></div>
+                                </div>
+                                <div class="item" data-theme="red">
+                                    <div class="color"></div>
+                                </div>
+                                <div class="item" data-theme="pink">
+                                    <div class="color"></div>
+                                </div>
+                                <div class="item" data-theme="purple">
+                                    <div class="color"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="item" data-theme="light">
+                                    <div class="color"></div>
+                                </div>
+                                <div class="item" data-theme="dark">
+                                    <div class="color"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="account-data leave-delete">
+                        <button class="btn btn-block btn-warning">
+                            Leave The Account
+                        </button>
+                        <button class="btn btn-block btn-danger">
+                            Delete Account
+                        </button>
+                    </div>
+                </div>
+                <!-- new-conversation panel -->
+                <div class="new-conversation panel">
+                    <div class="container">
+                        <div class="create-group">
+                            <form class="form" autocomplete="off">
+                                <div class="input-group">
+                                    <input type="text" id="group-name" placeholder=" " class="input-field">
+                                    <label for="group-name" class="input-label">Group Name</label>
+                                </div>
+                                <button type="submit" class="btn btn-block btn-primary">Create Group</button>
+                            </form>
+                        </div>
+                        <div class="add-contact">
+                            <form class="form" autocomplete="off">
+                                <div class="input-group">
+                                    <input type="text" id="contact-id" placeholder=" " class="input-field">
+                                    <label for="contact-id" class="input-label">User ID</label>
+                                </div>
+                                <button type="submit" class="btn btn-block btn-primary">Add Contact</button>
+                            </form>
+                        </div>
+                        <div class="contacts-list">
+                        </div>
+                    </div>
+                </div>
+                <!-- new-message button -->
+                <div class="new-message open">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px">
+                        <path d="M186.67-186.67H235L680-631l-48.33-48.33-445 444.33v48.33ZM120-120v-142l559.33-558.33q9.34-9 21.5-14 12.17-5 25.5-5 12.67 0 25 5 12.34 5 22 14.33L821-772q10 9.67 14.5 22t4.5 24.67q0 12.66-4.83 25.16-4.84 12.5-14.17 21.84L262-120H120Zm652.67-606-46-46 46 46Zm-117 71-24-24.33L680-631l-24.33-24Z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <!-- main contains messages, chat-input, chat-info -->
+        <div class="main">
+            <div class="container">
+                <div class="chat">
+                    <!-- chat-info -->
+                    <div class="chat-info">
+                        <div class="profile">
+                            <img src="../assets/profile/default.svg" alt="">
+                        </div>
+                        <div class="text open">
+                            <div class="title">
+                                <h1>
+                                </h1>
+                            </div>
+                            <div class="subscribers last-seen">
+                                <p></p>
+                            </div>
+                        </div>
+                        <div class="search open">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                                <path d="M792-120.67 532.67-380q-30 25.33-69.67 39.67Q423.33-326 378.67-326q-108.34 0-183.5-75.17Q120-476.33 120-583.33t75.17-182.17q75.16-75.17 182.83-75.17 107 0 181.83 75.17 74.84 75.17 74.84 182.17 0 43.33-14 83-14 39.66-40.67 73l260 258.66-48 48Zm-414-272q79 0 134.5-55.83T568-583.33q0-79-55.5-134.84Q457-774 378-774q-79.67 0-135.5 55.83-55.83 55.84-55.83 134.84T242.5-448.5q55.83 55.83 135.5 55.83Z"></path>
+                            </svg>
+                        </div>
+                        <div class="input-search">
+                            <label for="search-chat"></label>
+                            <input placeholder="Search" type="text" name="search" id="search-chat">
+                            <div class="search-in-input">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
+                                     width="24px">
+                                    <path d="M792-120.67 532.67-380q-30 25.33-69.67 39.67Q423.33-326 378.67-326q-108.34 0-183.5-75.17Q120-476.33 120-583.33t75.17-182.17q75.16-75.17 182.83-75.17 107 0 181.83 75.17 74.84 75.17 74.84 182.17 0 43.33-14 83-14 39.66-40.67 73l260 258.66-48 48Zm-414-272q79 0 134.5-55.83T568-583.33q0-79-55.5-134.84Q457-774 378-774q-79.67 0-135.5 55.83-55.83 55.84-55.83 134.84T242.5-448.5q55.83 55.83 135.5 55.83Z"></path>
+                                </svg>
+                            </div>
+                            <div class="search-result">
+                                <div class="container">
+                                    <div class="item">
+                                        <a href="">
+                                            <div class="profile">
+                                                <img src="../assets/profile/img.png" alt="">
+                                            </div>
+                                            <div class="text">
+                                                <div class="title">
+                                                    <h1>
+                                                        this is the last news this is the last new this is the last new
+                                                    </h1>
+                                                </div>
+                                                <div class="last-message">
+                                                    <p>
+                                                        news newsnewsnewsnewsnewsnewsnewsnewsnewsnewsnewsnews
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="time">
+                                                <p>2020/20/20</p>
+                                            </div>
+
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="close">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
+                                     width="24">
+                                    <path d="m251.33-204.67-46.66-46.66L433.33-480 204.67-708.67l46.66-46.66L480-526.67l228.67-228.66 46.66 46.66L526.67-480l228.66 228.67-46.66 46.66L480-433.33 251.33-204.67Z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- messages -->
+                    <div class="bubbles">
+                        <div class="bubbles-inner">
+
+                        </div>
+                    </div>
+                    <!-- chat-input -->
+                    <div class="new-message">
+                        <div class="attachment btn btn-icon-only">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px">
+                                <path d="M327.33-242Q224-242 152-314.45 80-386.9 80-490.12 80-593.33 152-666t175.33-72.67H704q73.33 0 124.67 51.84Q880-635 880-562t-51.33 124.83Q777.33-385.33 704-385.33H347.33q-43.33 0-74-30.67-30.66-30.67-30.66-74.33 0-43.67 30.45-74.34 30.44-30.66 74.21-30.66h370v66.66h-370q-15.66 0-26.83 11.17-11.17 11.17-11.17 27.59 0 16.43 11.17 27.17Q331.67-452 347.33-452H704q46-.33 77.67-32.17 31.66-31.83 31.66-77.97t-31.7-78Q749.92-672 704-672H327.33q-75.66-.33-128.16 52.98-52.5 53.31-52.5 129.02 0 75.28 52.5 127.97 52.5 52.7 128.16 53.36h390V-242h-390Z"/>
+                            </svg>
+                        </div>
+                        <div class="input-field">
+                            <label for="message"></label>
+                            <textarea name="message" placeholder="Message" id="message" rows="1"></textarea>
+                        </div>
+                        <div class="send">
+                            <div class=" btn btn-primary btn-icon-only">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960"
+                                     width="30px">
+                                    <path d="M120-160v-640l760 320-760 320Zm66.67-102 520.66-218-520.66-220v158.67L428-480l-241.33 60v158Zm0 0v-438 438Z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- contains complete information about chat and a few tools for users -->
+        <div class="info">
+            <div class="container">
+                <div class="header">
+                    <div class="close btn btn-icon-only">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                            <path d="m251.33-204.67-46.66-46.66L433.33-480 204.67-708.67l46.66-46.66L480-526.67l228.67-228.66 46.66 46.66L526.67-480l228.66 228.67-46.66 46.66L480-433.33 251.33-204.67Z"/>
+                        </svg>
+                    </div>
+                    <div class="title">
+                        <h1>
+                            Info
+                        </h1>
+                    </div>
+                    <div class="menu-toggle btn btn-icon-only">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                            <path d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z"/>
+                        </svg>
+                    </div>
+                </div>
+                <!-- actions menu -->
+                <div class="info-actions-menu">
+                    <div class="group-actions">
+                        <div class="item" data-action="leave-group"><p>Leave Group</p></div>
+                        <div class="item" data-action="add-member"><p>Add Member</p></div>
+                        <div class="item" data-action="edit-group"><p>Edit Group Info</p></div>
+                        <div class="item" data-action="archive"><p>Add to Archive</p></div>
+                        <div class="item" data-action="history"><p>History</p></div>
+                    </div>
+                    <div class="private-actions">
+                        <div class="item" data-action="block"><p>Block User</p></div>
+                        <div class="item" data-action="add-contact"><p>Add to Contacts</p></div>
+                        <div class="item" data-action="archive"><p>Add to Archive</p></div>
+                    </div>
+                </div>
+                <div class="profile">
+                    <div class="image">
+                        <img src="../assets/profile/img.png" alt="">
+                    </div>
+                </div>
+                <div class="name">
+                    <h1>
+                        Lorem ipsum dolor sit amet.
+                    </h1>
+                </div>
+                <div class="subscribers last-seen">
+                    <p>resently</p>
+                </div>
+                <div class="infos">
+                    <div class="item id">
+                        <div class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                                <path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480v54.67q0 57-39.73 96.5t-97.6 39.5q-35.72 0-67.36-16.67t-49.98-47.33q-27 32.33-65.22 48.16-38.22 15.84-80.11 15.84-79.4 0-135.37-55.5-55.96-55.5-55.96-135.18t55.83-135.83Q400.33-672 480-672t135.5 56.16q55.83 56.16 55.83 135.84v54.67q0 29.07 20.67 49.2Q712.67-356 742.33-356q29.67 0 50.34-20.13 20.66-20.13 20.66-49.2V-480q0-139.58-97-236.46-97-96.87-236.33-96.87t-236.33 97q-97 97-97 236.33t96.87 236.33q96.88 97 236.46 97h209.33V-80H480Zm88.33-312.17q36.34-36.16 36.34-87.83 0-52.67-36.38-89-36.37-36.33-88.33-36.33T391.67-569q-36.34 36.33-36.34 89 0 51.67 36.38 87.83Q428.08-356 480.04-356t88.29-36.17Z"/>
+                            </svg>
+                        </div>
+                        <div class="title">
+                            <p>
+                                channel.com
+                            </p>
+                        </div>
+                    </div>
+                    <div class="item bio">
+                        <div class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                                <path d="M480-241.33q-63.33 0-121.67 21.5Q300-198.33 250-156v9.33h460V-156q-50-42.33-108.33-63.83-58.34-21.5-121.67-21.5Zm136-43.34q63.67 23.34 117.33 64v-592.66H226.67v592.66q53.66-40.66 117.33-64Q407.67-308 480-308t136 23.33Zm-185.5-190.5q-21.17-21.16-21.17-50.83 0-29.67 21.17-50.83Q451.67-598 481.33-598q29.67 0 50.84 21.17 21.16 21.16 21.16 50.83 0 29.67-21.16 50.83Q511-454 481.33-454q-29.66 0-50.83-21.17ZM226.67-80q-27 0-46.84-19.83Q160-119.67 160-146.67v-666.66q0-27 19.83-46.84Q199.67-880 226.67-880h506.66q27 0 46.84 19.83Q800-840.33 800-813.33v666.66q0 27-19.83 46.84Q760.33-80 733.33-80H226.67Zm353-347.67Q620-468 620-526t-40.33-98.33q-40.34-40.34-98.34-40.34T383-624.33Q342.67-584 342.67-526T383-427.67q40.33 40.34 98.33 40.34t98.34-40.34ZM480-526Z"/>
+                            </svg>
+                        </div>
+                        <div class="title">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium adipisci
+                                asperiores, Dolore eligendi, enim error excepturi iste, molestiae nam provident quasi
+                                quod repellat sed voluptas voluptatem.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
