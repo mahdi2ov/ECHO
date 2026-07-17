@@ -1,5 +1,6 @@
 package echo.repository.inmemory;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -70,6 +71,17 @@ public class InMemoryMessageRepository implements MessageRepository {
         List<Message> messagesFound = new ArrayList<>();
         for (Message message : messagesById.values()) {
             if (message.getConversationId().equals(conversationId)) {
+                messagesFound.add(message);
+            }
+        }
+        return messagesFound;
+    }
+
+    @Override
+    public synchronized List<Message> getMessagesByConversationIdSince(String conversationId, LocalDateTime since) {
+        List<Message> messagesFound = new ArrayList<>();
+        for (Message message : messagesById.values()) {
+            if (message.getConversationId().equals(conversationId) && message.getCreatedAt().isAfter(since)) {
                 messagesFound.add(message);
             }
         }
