@@ -254,8 +254,6 @@ const pollForNewMessages = async () => {
     try {
         const newMessages = await apiClient.getMessages(currentConversationId, lastSeenTimestamp);
         newMessages.forEach((message) => {
-            // Skip messages we already have — either shown from the
-            // initial load, or ones we just sent ourselves.
             if (qs(`.bubble[data-message-id="${message.id}"]`)) return;
             appendMessage(message);
         });
